@@ -27,7 +27,7 @@ public class Drive extends SubsystemBase {
     private MotorControllerGroup leftGroup = new MotorControllerGroup(leftFront, leftBack);
     private MotorControllerGroup rightGroup = new MotorControllerGroup(rightFront, rightBack);
     private RelativeEncoder leftEncoder = leftFront.getEncoder(SparkMaxRelativeEncoder.Type.kHallSensor, 42);
-    private RelativeEncoder rightEncoder = rightFront.getEncoder(SparkMaxRelativeEncoder.Type.kHallSensor, 42);
+    private RelativeEncoder rightEncoder = rightBack.getEncoder(SparkMaxRelativeEncoder.Type.kHallSensor, 42);
 
     private DifferentialDrive driveDifferential = new DifferentialDrive(leftGroup, rightGroup);
 
