@@ -8,11 +8,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveRobot;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -23,9 +26,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private static RobotContainer robotContainer = new RobotContainer();
   private final Drive m_drive = new Drive();
-
+  private final Intake m_intake = new Intake();
+  //private final Command DriveRobot = new DriveRobot(m_drive, 0.1, 0);
   private XboxController controller1 = new XboxController(0);
   private XboxController controller2 = new XboxController(1);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   private RobotContainer() {
@@ -41,7 +46,15 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    
+    final JoystickButton button1a = new JoystickButton(controller1, XboxController.Button.kA.value);
+    button1a.whileHeld(new RunIntake(m_intake));
+    
+    final JoystickButton r1 = new JoystickButton(controller1, 12);
+
+    // Connect the buttons to commands
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
