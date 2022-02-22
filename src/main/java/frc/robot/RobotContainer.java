@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.DriveRobot;
 import frc.robot.commands.FrontIntake;
 import frc.robot.commands.Shoot;
@@ -14,6 +15,7 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launch;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Index;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -30,6 +32,7 @@ public class RobotContainer {
   private final Drive m_drive = new Drive();
   private final Intake m_intake = new Intake();
   private final Launch m_launch = new Launch();
+  private final Index m_index = new Index();
 
   private XboxController controller1 = new XboxController(0);
   private XboxController controller2 = new XboxController(1);
@@ -40,8 +43,14 @@ public class RobotContainer {
     m_drive.setDefaultCommand(new DriveRobot(m_drive, controller1::getLeftX, controller1::getLeftY));
     // Configure the button bindings
     configureButtonBindings();
+    
+
   }
 
+  public void updateDashboard(){
+    SmartDashboard.putBoolean("sensor0", m_index.getSensor0());
+    SmartDashboard.putBoolean("sensor1", m_index.getSensor1());
+  }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
