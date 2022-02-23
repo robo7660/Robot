@@ -49,6 +49,7 @@ public class Robot extends TimedRobot
   //controllers
   private final XboxController joystick1 = new XboxController(0);
   private final XboxController joystick2 = new XboxController(1);
+  private final XboxController joystick3 = new XboxController(2);
 
   // motors controllers
   public static TalonSRX left1 = new TalonSRX(2);
@@ -212,7 +213,7 @@ public class Robot extends TimedRobot
           drive.arcadeDrive(joystick1.getLeftX() * 1.0f, joystick1.getLeftY() * 1.0f, false);
         }
         else{
-            drive.arcadeDrive(joystick1.getLeftX() * 1.0f, -joystick1.getLeftY() * 1.0f, false);
+            drive.tankDrive(-joystick1.getLeftY(), joystick2.getLeftY());
         }
       } 
       else {
@@ -220,7 +221,7 @@ public class Robot extends TimedRobot
           drive.arcadeDrive(joystick1.getLeftX() * 0.75f, joystick1.getLeftY() * 0.9f, false);
         }
         else{
-          drive.arcadeDrive(joystick1.getLeftX() * 0.75f, -joystick1.getLeftY() * 0.90f, false);
+          drive.tankDrive(-joystick1.getLeftY(), joystick2.getLeftY());
         }
       }
       left1.set(ControlMode.PercentOutput, left2.getMotorOutputPercent());
