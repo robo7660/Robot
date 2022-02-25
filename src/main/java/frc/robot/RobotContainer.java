@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoIndex;
 import frc.robot.commands.DriveRobot;
-import frc.robot.commands.FrontIntake;
+import frc.robot.commands.RunIntake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.UpdateDashboard;
 import frc.robot.commands.ExampleCommand;
@@ -69,7 +69,7 @@ public class RobotContainer {
     JoystickButton a = new JoystickButton(controller1, 1);
     JoystickButton b = new JoystickButton(controller1, 2);
 
-    a.whileHeld(new FrontIntake(m_intake));
+    a.whileHeld(new RunIntake(m_intake));
     b.whileHeld(new Shoot(m_launch));
   }
 
