@@ -30,18 +30,22 @@ public class Shoot extends CommandBase {
   @Override
   public void initialize() {
     m_startTime = System.currentTimeMillis();
+    m_subsystem.stopFeed();
+    m_subsystem.stopPulley();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.runFeed();
+    m_subsystem.startFeed();
+    m_subsystem.startPulley();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_subsystem.stopFeed();
+    m_subsystem.stopPulley();
   }
 
   // Returns true when the command should end.
