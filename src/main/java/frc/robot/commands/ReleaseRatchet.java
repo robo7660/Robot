@@ -9,7 +9,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class TestSolenoidReverse extends CommandBase {
+public class ReleaseRatchet extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Climb m_subsystem;
 
@@ -18,7 +18,7 @@ public class TestSolenoidReverse extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public TestSolenoidReverse(Climb subsystem) {
+  public ReleaseRatchet(Climb subsystem){
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -28,20 +28,20 @@ public class TestSolenoidReverse extends CommandBase {
   @Override
   public void initialize() {
     m_subsystem.off();
+    m_subsystem.setRatchetState(true);//engaged
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //m_subsystem.printSolenoidState();
-    m_subsystem.reverse();
-    //m_subsystem.printSolenoidState();
+    m_subsystem.reverse(); // solenoid goes in
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_subsystem.off();
+    m_subsystem.setRatchetState(false); //not engaged
   }
 
   // Returns true when the command should end.

@@ -12,10 +12,13 @@ import frc.robot.commands.AutoIndex;
 import frc.robot.commands.DriveRobot;
 import frc.robot.commands.FrontIntake;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.StartWench;
 import frc.robot.commands.TestSolenoidForward;
 import frc.robot.commands.TestSolenoidReverse;
+import frc.robot.commands.ReleaseRatchet;
 import frc.robot.commands.UpdateDashboard;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ExtendArm;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
@@ -83,12 +86,14 @@ public class RobotContainer {
     JoystickButton b = new JoystickButton(controller1, 2);
     JoystickButton x = new JoystickButton(controller1, 3);
     JoystickButton y = new JoystickButton(controller1, 4);
+    JoystickButton lb = new JoystickButton(controller1, 5);
+    JoystickButton rb = new JoystickButton(controller1, 6);
 
     a.whileHeld(new FrontIntake(m_intake));
     b.whileHeld(new Shoot(m_launch));
-    x.whileHeld(new TestSolenoidForward(m_climb));
-    y.whileHeld(new TestSolenoidReverse(m_climb));
-
+    lb.whileHeld(new TestSolenoidForward(m_climb));
+    rb.whileHeld(new TestSolenoidReverse(m_climb));
+    x.whileHeld(new ExtendArm(m_climb));
   }
 
   /**

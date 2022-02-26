@@ -4,12 +4,11 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Climb;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Climb;
 
 /** An example command that uses an example subsystem. */
-public class TestSolenoidReverse extends CommandBase {
+public class StartWench extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Climb m_subsystem;
 
@@ -18,7 +17,7 @@ public class TestSolenoidReverse extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public TestSolenoidReverse(Climb subsystem) {
+  public StartWench(Climb subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -27,21 +26,22 @@ public class TestSolenoidReverse extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.off();
+    m_subsystem.wenchOff();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //m_subsystem.printSolenoidState();
-    m_subsystem.reverse();
-    //m_subsystem.printSolenoidState();
+    if(m_subsystem.isRatchetEngaged() == false){
+      m_subsystem.wenchOn();
+    }
+    //System.out.println("in startWench Execute");
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.off();
+    m_subsystem.wenchOff();
   }
 
   // Returns true when the command should end.
