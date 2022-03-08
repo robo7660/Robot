@@ -46,10 +46,11 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double i = 0;
     if(m_launch.getCurRpm() >= (launchSpeed * .95)) {
       if (!feedRunning) {
         m_launch.runFeed();
-        m_index.runIndex();
+        m_index.myRunIndex();
         feedRunning = true;
       }
     } else {

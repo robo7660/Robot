@@ -36,6 +36,10 @@ public class Index extends SubsystemBase {
     index.set(-0.8);
   }
 
+  public void myRunIndex() {
+    index.set(0.8);
+  }
+
   public void stopIndex(){
     index.set(0);
   }

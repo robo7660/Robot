@@ -11,7 +11,7 @@ public class LaunchGroup extends SequentialCommandGroup {
     public LaunchGroup(Launch launch, Index index, Drive drive, Limelight limelight){
         
         addCommands(
-            new Align(drive, limelight),
+            // new Align(drive, limelight),
             new Shoot(launch, index, limelight)
         );
     }
