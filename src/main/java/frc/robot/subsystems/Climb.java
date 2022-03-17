@@ -42,7 +42,7 @@ public class Climb extends SubsystemBase {
   }
 
   public void runWench(DoubleSupplier speed){
-    climbWench.set(speed.getAsDouble());
+    climbWench.set(speed.getAsDouble() * 0.4f);
   }
 
   public Climb() {}

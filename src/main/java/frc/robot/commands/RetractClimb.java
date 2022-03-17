@@ -5,20 +5,20 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Climb;
-import frc.robot.subsystems.ExampleSubsystem;
 
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/** An example command that uses an example subsystem. */
+
+
 public class RetractClimb extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Climb m_climb;
   private DoubleSupplier m_speed;
 
   /**
-   * Creates a new ExampleCommand.
+   *
    *
    * @param subsystem The subsystem used by this command.
    */
