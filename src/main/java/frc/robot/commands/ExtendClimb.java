@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 public class ExtendClimb extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Climb m_subsystem;
   private DoubleSupplier speed;
   private final Timer m_timer = new Timer();
