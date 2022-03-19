@@ -13,18 +13,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
 public class RetractClimb extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Climb m_climb;
-  private DoubleSupplier m_speed;
 
   /**
    *
    *
    * @param subsystem The subsystem used by this command.
    */
-  public RetractClimb(Climb subsystem, DoubleSupplier speed) {
+  public RetractClimb(Climb subsystem) {
     m_climb = subsystem;
-    m_speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -36,13 +33,8 @@ public class RetractClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!m_climb.getIsExtended() && m_speed.getAsDouble() > 0.1){
-      m_climb.runWench(m_speed);
-      m_climb.setIsExtended(false);
-      m_climb.retractSolenoid();
-    }
-    else{
-      m_climb.solenoidOff();
+    if(m_climb.isArmExtended()){
+      m_climb.runWench();
     }
   }
 

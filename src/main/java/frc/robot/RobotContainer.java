@@ -74,7 +74,6 @@ public class RobotContainer {
     }
 
     m_drive.setDefaultCommand(new TankDriveRobot(m_drive, controller1::getLeftY, controller2::getLeftY));
-    m_climb.setDefaultCommand(new RetractClimb(m_climb, controller3::getRightTriggerAxis));
 
     m_autoCommand = new AutonomousCommand(m_launch, m_intakeSolenoid, m_index, m_drive, m_limelight, m_intake);
   
@@ -105,6 +104,7 @@ public class RobotContainer {
     JoystickButton rb3 = new JoystickButton(controller3, XboxController.Button.kRightBumper.value);
     JoystickButton lb3 = new JoystickButton(controller3, XboxController.Button.kLeftBumper.value);
     JoystickButton four2 = new JoystickButton(controller2, 4);
+    JoystickButton twelve2 = new JoystickButton(controller2, 12);
 
     a.whileHeld(new RunIntake(m_intake));
     lb3.whileHeld(new ShootManual(m_launch, m_index, 2000));
@@ -113,7 +113,8 @@ public class RobotContainer {
     y3.whileHeld(new ReverseIntake(m_intake));
     // shoot independent of limelight.
     rb3.whileHeld(new ShootManual(m_launch, m_index, 1900));
-    four2.whenPressed(new ExtendClimb(m_climb));
+    four2.whileHeld(new ExtendClimb(m_climb));
+    twelve2.whileHeld(new RetractClimb(m_climb));
   }
 
  

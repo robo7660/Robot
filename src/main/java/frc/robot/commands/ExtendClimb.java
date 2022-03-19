@@ -32,10 +32,9 @@ public class ExtendClimb extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.extendSolenoid();
+    m_subsystem.retractSolenoid();
     m_timer.reset();
     m_timer.start();
-    m_subsystem.setIsExtended(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
