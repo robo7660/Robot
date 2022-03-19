@@ -18,7 +18,7 @@ public class Climb extends SubsystemBase {
   /** Creates a new Climb. */
 
   private CANSparkMax climbWench = new CANSparkMax(8, MotorType.kBrushless);
-  private DoubleSolenoid climbSolenoid = new DoubleSolenoid(12, PneumaticsModuleType.CTREPCM, 5, 4);
+  private DoubleSolenoid climbSolenoid = new DoubleSolenoid(12, PneumaticsModuleType.CTREPCM, 4, 5);
   private boolean armExtended = false;
 
   /*public void setIsExtended(boolean input){
@@ -34,15 +34,24 @@ public class Climb extends SubsystemBase {
     armExtended = true;
   }
 
+  public void extendSolenoid(){
+    climbSolenoid.set(Value.kForward);
+  }
+
   public void solenoidOff(){
     climbSolenoid.set(Value.kOff);
   }
 
   public void runWench(){
-    climbWench.set(0.4);
+    climbWench.set(-0.4);
   }
 
-  public Climb() {}
+  public void stopWench(){
+    climbWench.set(0);
+  }
+
+  public Climb() {
+  }
 
   @Override
   public void periodic() {
