@@ -7,20 +7,25 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake extends SubsystemBase {
+public class Indexer extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public Intake() {}
+  public Indexer() {}
 
-  private Talon intakeMotor = new Talon(5);
 
-  public void runIntake(){
-    intakeMotor.set(1);
+  private Talon index = new Talon(7); 
+
+  public void runIndexer() {
+    index.set(1); 
+    
   }
-
-  public void stopIntake(){
-    intakeMotor.set(0);
+  public void stopIndexer() {
+    index.set(0);
   }
-
+  public void backwardIndexer() {
+    index.set(-1);
+  }
+  
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
