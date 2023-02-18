@@ -120,7 +120,7 @@ public class SimDrive extends Drive {
 
   @Override
   public void resetOdometry(Pose2d pose) {
-    zeroEncoders();
+    resetEncoders();
     odometer.resetPosition(
         m_gyro.getRotation2d(), lEncSim.getDistance(), rEncSim.getDistance(), pose);
   }
@@ -133,7 +133,7 @@ public class SimDrive extends Drive {
   }
 
   @Override
-  public void zeroEncoders() {
+  public void resetEncoders() {
     lEncSim.setDistance(0);
     rEncSim.setDistance(0);
   }
@@ -151,5 +151,21 @@ public class SimDrive extends Drive {
   @Override
   public double getTurnRate() {
     return m_gyro.getRate();
+  }
+
+  public double getRightRotations() {
+    return rEncSim.getDistance();
+  }
+
+  public double getLeftRotations() {
+    return lEncSim.getDistance();
+  }
+
+  public void setRightRotations(double target_rotations) {
+    throw new java.lang.UnsupportedOperationException();
+  }
+
+  public void setLeftRotations(double target_rotations) {
+    throw new java.lang.UnsupportedOperationException();
   }
 }

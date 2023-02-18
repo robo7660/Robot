@@ -26,6 +26,7 @@ import frc.robot.commands.ArmReverse;
 import frc.robot.commands.ClawSwitch;
 import frc.robot.commands.DriveTank;
 import frc.robot.commands.SwitchGears;
+import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drive;
@@ -94,11 +95,18 @@ public class RobotContainer {
     final JoystickButton codriverB = new JoystickButton(coDriver, XboxController.Button.kB.value);
     final JoystickButton leftStickTrigger = new JoystickButton(leftStick, 1);
     final JoystickButton rightStickTrigger = new JoystickButton(rightStick, 1);
+    final JoystickButton codriverX = new JoystickButton(coDriver, XboxController.Button.kX.value);
+    final JoystickButton codriverY = new JoystickButton(coDriver, XboxController.Button.kY.value);
 
     codriverA.whileTrue(new ArmForward(m_arm));
     codriverB.whileTrue(new ArmReverse(m_arm));
     leftStickTrigger.onTrue(new ClawSwitch(m_claw));
     rightStickTrigger.whileTrue(new SwitchGears(m_gearShifter));
+
+    if (RobotBase.isReal()) {
+      codriverX.onTrue(new TurnToAngle(90.0, (RealDrive) m_drive));
+      codriverY.onTrue(new TurnToAngle(-90.0, (RealDrive) m_drive));
+    }
   }
 
   /**

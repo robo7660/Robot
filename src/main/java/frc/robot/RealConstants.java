@@ -50,4 +50,10 @@ public final class RealConstants extends Constants {
   // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
   public static final double kRamseteB = 2;
   public static final double kRamseteZeta = 0.7;
+  public static final double kTurnD = 0;
+  public static final double kTurnI = 0;
+  public static final double kTurnP = 1;
+  public static final double kTurnToleranceDeg = 5;
+  public static final double kTurnRateToleranceDegPerS = 10;
+  public static boolean kGyroReversed = false;
 }

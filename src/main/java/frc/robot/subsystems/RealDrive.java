@@ -15,6 +15,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RealConstants;
 import java.util.function.DoubleSupplier;
 
@@ -57,6 +58,7 @@ public class RealDrive extends Drive {
     driveTrain.tankDrive(lSpeed.getAsDouble() * pOutput, rSpeed.getAsDouble() * pOutput);
   }
 
+  @Override
   public void setArcadeDrive(double speed, double rotation) {
 
     driveTrain.arcadeDrive(speed, rotation);
@@ -66,6 +68,10 @@ public class RealDrive extends Drive {
   public void periodic() {
     // This method will be called once per scheduler run
     m_odometry.update(m_gyro.getRotation2d(), leftEnc.getPosition(), rightEnc.getPosition());
+    SmartDashboard.putNumber("leftPositionMeters", leftEnc.getPosition());
+    SmartDashboard.putNumber("rightPositionMeters", rightEnc.getPosition());
+    SmartDashboard.putNumber("degrees", m_gyro.getAngle());
+    SmartDashboard.putNumber("yaw", m_gyro.getYaw());
   }
 
   @Override
@@ -80,7 +86,7 @@ public class RealDrive extends Drive {
 
   @Override
   public void resetOdometry(Pose2d pose) {
-    zeroEncoders();
+    resetEncoders();
     m_odometry.resetPosition(
         m_gyro.getRotation2d(), leftEnc.getPosition(), rightEnc.getPosition(), pose);
   }
@@ -93,7 +99,7 @@ public class RealDrive extends Drive {
   }
 
   @Override
-  public void zeroEncoders() {
+  public void resetEncoders() {
     leftEnc.setPosition(0);
     rightEnc.setPosition(0);
   }
@@ -112,11 +118,27 @@ public class RealDrive extends Drive {
 
   @Override
   public double getHeading() {
-    return m_gyro.getAngle();
+    return Math.IEEEremainder(m_gyro.getAngle(), 360) * (RealConstants.kGyroReversed ? -1.0 : 1.0);
   }
 
   @Override
   public double getTurnRate() {
-    return m_gyro.getRate();
+    return m_gyro.getRate() * (RealConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  public double getRightRotations() {
+    return rightEnc.getPosition();
+  }
+
+  public double getLeftRotations() {
+    return leftEnc.getPosition();
+  }
+
+  public void setRightRotations(double target_rotations) {
+    rightEnc.setPosition(target_rotations);
+  }
+
+  public void setLeftRotations(double target_rotations) {
+    leftEnc.setPosition(target_rotations);
   }
 }

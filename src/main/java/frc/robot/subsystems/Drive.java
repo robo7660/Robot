@@ -15,6 +15,10 @@ public class Drive extends SubsystemBase {
     throw new java.lang.UnsupportedOperationException();
   }
 
+  public void setArcadeDrive(double speed, double rotation) {
+    throw new java.lang.UnsupportedOperationException();
+  }
+
   public Pose2d getPose() {
     throw new java.lang.UnsupportedOperationException();
   }
@@ -27,7 +31,7 @@ public class Drive extends SubsystemBase {
     throw new java.lang.UnsupportedOperationException();
   }
 
-  public void zeroEncoders() {
+  public void resetEncoders() {
     throw new java.lang.UnsupportedOperationException();
   }
 
@@ -44,6 +48,22 @@ public class Drive extends SubsystemBase {
   }
 
   public double getTurnRate() {
+    throw new java.lang.UnsupportedOperationException();
+  }
+
+  public double getRightRotations() {
+    throw new java.lang.UnsupportedOperationException();
+  }
+
+  public double getLeftRotations() {
+    throw new java.lang.UnsupportedOperationException();
+  }
+
+  public void setRightRotations(double target_rotations) {
+    throw new java.lang.UnsupportedOperationException();
+  }
+
+  public void setLeftRotations(double target_rotations) {
     throw new java.lang.UnsupportedOperationException();
   }
 }
