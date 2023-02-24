@@ -23,6 +23,11 @@ public class Constants {
   public int kCPR = 0;
 
   public static class DriveConstants {
+    public static final double kTurnAngleToleranceDegrees = 2;
+    public static final double kTurnAngleToleranceDegreesPerS = 90;
+    public static final double kTurnP = 0;
+    public static final double kTurnI = 0;
+    public static final double kTurnD = 0;
     public static double kDriveP = 0.0;
     public static double kDriveI = 0.0;
     public static double kDriveD = 0.0;
