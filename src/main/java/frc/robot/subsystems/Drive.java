@@ -54,4 +54,8 @@ public class Drive extends SubsystemBase {
   public void setArcadeDrive(double calculate, double rotation) {
     throw new java.lang.UnsupportedOperationException();
   }
+
+  public double getPitch(){
+    return 0;
+  }
 }

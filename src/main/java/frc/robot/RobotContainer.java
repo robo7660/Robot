@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.BasicAuto;
+import frc.robot.commands.AutonBalance;
+import frc.robot.commands.AutonBasic;
 import frc.robot.commands.DriveTank;
 import frc.robot.commands.ManualArm;
 import frc.robot.commands.ManualClaw;
@@ -75,9 +76,11 @@ public class RobotContainer {
       m_claw.setDefaultCommand(new ManualClaw(m_claw, coDriver::getRightY));
     }
 
-    Command basicAuto = new BasicAuto(m_arm, m_claw, m_drive);
+    Command basicAuto = new AutonBasic(m_arm, m_claw, m_drive);
+    Command balanceAuto = new AutonBalance(m_arm, m_claw, m_drive);
 
     m_Chooser.setDefaultOption("Basic Auton", basicAuto);
+    m_Chooser.addOption("Balance Auton", balanceAuto);
 
     SmartDashboard.putData(m_Chooser);
   }

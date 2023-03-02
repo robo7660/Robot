@@ -12,8 +12,10 @@ import com.revrobotics.SparkMaxRelativeEncoder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import frc.robot.RealConstants;
 import java.util.function.DoubleSupplier;
@@ -48,6 +50,8 @@ public class RealDrive extends Drive {
 
   private final AHRS m_gyro = new AHRS(SerialPort.Port.kMXP);
 
+  private final Accelerometer m_accelerometer = new BuiltInAccelerometer();
+
   private DifferentialDriveOdometry m_odometry =
       new DifferentialDriveOdometry(
           m_gyro.getRotation2d(), leftEnc.getPosition(), rightEnc.getPosition());
@@ -63,6 +67,10 @@ public class RealDrive extends Drive {
   @Override
   public void setArcadeDrive(double speed, double rotation) {
     driveTrain.arcadeDrive(speed, rotation);
+  }
+
+  public double getPitch(){
+    return m_gyro.getPitch();
   }
 
   @Override
