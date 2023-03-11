@@ -70,4 +70,7 @@ public final class RealConstants extends Constants {
 
   public static final float clawForwardLimit = 135;
   public static final float clawReverseLimit = 10;
+
+  public static final double kConePreload = 20;
+  public static final double kCubePreload = 25;
 }

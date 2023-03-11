@@ -40,7 +40,7 @@ public class Claw extends SubsystemBase {
     clawMotor.setIdleMode(IdleMode.kBrake);
 
     clawEnc.setPositionConversionFactor(RealConstants.clawConversionFactor);
-    clawEnc.setPosition(25);
+    clawEnc.setPosition(RealConstants.kCubePreload);
 
     clawMotor.setSoftLimit(SoftLimitDirection.kForward, RealConstants.clawForwardLimit);
     clawMotor.setSoftLimit(SoftLimitDirection.kReverse, RealConstants.clawReverseLimit);
@@ -72,6 +72,10 @@ public class Claw extends SubsystemBase {
 
   public double getPosition() {
     return clawEnc.getPosition();
+  }
+
+  public void setPreloadPos(double position){
+    clawEnc.setPosition(position);
   }
 
   public void setMotorVolts(double speed) {

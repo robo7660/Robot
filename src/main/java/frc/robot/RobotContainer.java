@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -19,6 +20,7 @@ import frc.robot.commands.ManualArm;
 import frc.robot.commands.ManualClaw;
 import frc.robot.commands.SetArmPosition;
 import frc.robot.commands.SetClawPosition;
+import frc.robot.commands.SetPreloadPosition;
 import frc.robot.commands.SwitchGears;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
@@ -49,6 +51,7 @@ public class RobotContainer {
   private final Claw m_claw = new Claw();
 
   SendableChooser<Command> m_Chooser = new SendableChooser<>();
+  SendableChooser<Command> m_preloadChooser = new SendableChooser<>();
 
   private final XboxController leftStick = new XboxController(0);
   private final XboxController rightStick = new XboxController(1);
@@ -79,10 +82,17 @@ public class RobotContainer {
     Command basicAuto = new AutonBasic(m_arm, m_claw, m_drive);
     Command balanceAuto = new AutonBalance(m_arm, m_claw, m_drive);
 
+    Command preloadCube = new SetPreloadPosition(m_claw, RealConstants.kCubePreload);
+    Command preloadCone = new SetPreloadPosition(m_claw, RealConstants.kConePreload);
+
     m_Chooser.setDefaultOption("Basic Auton", basicAuto);
     m_Chooser.addOption("Balance Auton", balanceAuto);
 
+    m_preloadChooser.setDefaultOption("Cube Preload", preloadCube);
+    m_preloadChooser.addOption("Cone Preload", preloadCone);
+
     SmartDashboard.putData(m_Chooser);
+    SmartDashboard.putData(m_preloadChooser);
   }
 
   /**
@@ -117,7 +127,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     Command autoCommand = m_Chooser.getSelected();
+    Command preloadCommand = m_preloadChooser.getSelected();
 
-    return autoCommand;
+    return new SequentialCommandGroup(preloadCommand, autoCommand);
   }
 }

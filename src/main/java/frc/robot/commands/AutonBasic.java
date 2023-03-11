@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.RealConstants;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drive;
@@ -18,7 +19,6 @@ public class AutonBasic extends SequentialCommandGroup {
     addCommands(
         new SetArmPosition(arm, 190),
         new SetClawPosition(claw, 90),
-        new Wait(1),
         new SetClawPosition(claw, 0),
         new SetArmPosition(arm, 25),
         new DriveDistance(5, drive));
