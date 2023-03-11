@@ -55,7 +55,7 @@ public class Drive extends SubsystemBase {
     throw new java.lang.UnsupportedOperationException();
   }
 
-  public double getPitch(){
+  public double getPitch() {
     return 0;
   }
 

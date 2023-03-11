@@ -84,7 +84,7 @@ public class Claw extends SubsystemBase {
     return clawEnc.getPosition();
   }
 
-  public void setPreloadPos(double position){
+  public void setPreloadPos(double position) {
     clawEnc.setPosition(position);
   }
 

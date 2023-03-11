@@ -70,7 +70,7 @@ public class RealDrive extends Drive {
     driveTrain.arcadeDrive(speed, rotation);
   }
 
-  public double getPitch(){
+  public double getPitch() {
     return m_gyro.getPitch();
   }
 

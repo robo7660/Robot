@@ -12,10 +12,10 @@ import frc.robot.subsystems.Drive;
 public class Balance extends CommandBase {
   /** Creates a new Balance. */
   private Drive m_drive;
+
   private PIDController m_lPID;
   private PIDController m_rPID;
 
-  
   public Balance(Drive drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;
