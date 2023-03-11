@@ -25,11 +25,12 @@ public class ManualClaw extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double dSpeed = m_speed.getAsDouble();
-    if (dSpeed <= -0.1 || dSpeed >= 0.1) {
-      m_claw.setMotor(dSpeed);
+    double position = m_claw.getPosition();
+    double power = m_speed.getAsDouble();
+    if (power <= 0.1 && power >= -0.1) {
+      m_claw.setMotor(0);
     } else {
-      m_claw.hold();
+      m_claw.setMotor(power);
     }
   }
 

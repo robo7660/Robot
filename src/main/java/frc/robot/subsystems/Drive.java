@@ -58,4 +58,8 @@ public class Drive extends SubsystemBase {
   public double getPitch(){
     return 0;
   }
+
+  public void setBrakeMode() {}
+
+  public void setCoastMode() {}
 }

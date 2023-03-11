@@ -6,12 +6,12 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxLimitSwitch;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RealConstants;
@@ -30,6 +30,8 @@ public class Arm extends SubsystemBase {
 
   private RelativeEncoder armEnc = armMotor.getEncoder();
 
+  private DigitalInput armProxSensor = new DigitalInput(0);
+
   /** Creates a new Arm subsystem. */
   public Arm() {
     reverseLimit.enableLimitSwitch(true);
@@ -41,9 +43,6 @@ public class Arm extends SubsystemBase {
 
     armEnc.setPosition(0);
     armEnc.setPositionConversionFactor(RealConstants.armConversionFactor);
-
-    armMotor.setSoftLimit(SoftLimitDirection.kReverse, RealConstants.armReverseLimit);
-    armMotor.setSoftLimit(SoftLimitDirection.kForward, RealConstants.armForwardLimit);
   }
 
   public boolean queryFront() {
@@ -56,15 +55,13 @@ public class Arm extends SubsystemBase {
 
   public void setMotor(double speed) {
     double position = armEnc.getPosition();
-    /*if(position >= RealConstants.armForwardLimit && speed > 0){
+    if (position <= -RealConstants.armForwardLimit && speed < 0) {
       armMotor.set(0);
-    }
-    else if(position <= RealConstants.armReverseLimit && speed < 0){
+    } else if (position >= -RealConstants.armReverseLimit && speed > 0) {
       armMotor.set(0);
+    } else {
+      armMotor.set(speed * RealConstants.armSpeed);
     }
-    else{*/
-    armMotor.set(speed * RealConstants.armSpeed);
-    // } FIXME test soft limits before re-adding code
   }
 
   public void setMotorReverse(double speed) {
@@ -75,10 +72,6 @@ public class Arm extends SubsystemBase {
     armMotor.set(0);
   }
 
-  public void hold() {
-    armMotor.set(holdPID.calculate(armEnc.getVelocity(), 0));
-  }
-
   public double getVelocityRad() {
     return Units.degreesToRadians(armEnc.getVelocity());
   }
@@ -87,14 +80,23 @@ public class Arm extends SubsystemBase {
     return armEnc.getPosition();
   }
 
-  public void setMotorVolts(double voltage) {
-    armMotor.setVoltage(voltage);
+  public void setMotorVolts(double speed) {
+    double position = getPosition();
+
+    if (position <= -RealConstants.armForwardLimit && speed < 0) {
+      armMotor.setVoltage(0);
+    } else if (position >= -RealConstants.armReverseLimit && speed > 0) {
+      armMotor.setVoltage(0);
+    } else {
+      armMotor.setVoltage(speed);
+    }
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Arm Position", armEnc.getPosition());
     SmartDashboard.putNumber("Arm Velocity", armEnc.getVelocity());
+    SmartDashboard.putBoolean("Arm Limit", armProxSensor.get());
   }
 
   @Override

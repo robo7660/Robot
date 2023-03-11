@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxLimitSwitch;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RealConstants;
 
@@ -44,6 +45,8 @@ public class Claw extends SubsystemBase {
 
     clawMotor.setSoftLimit(SoftLimitDirection.kForward, RealConstants.clawForwardLimit);
     clawMotor.setSoftLimit(SoftLimitDirection.kReverse, RealConstants.clawReverseLimit);
+
+    clawEnc.setPosition(0);
   }
 
   public boolean queryClosed() {
@@ -55,7 +58,14 @@ public class Claw extends SubsystemBase {
   }
 
   public void setMotor(double speed) {
-    clawMotor.set(speed);
+    double position = clawEnc.getPosition();
+    if (position <= -RealConstants.clawForwardLimit && speed < 0) {
+      clawMotor.set(0);
+    } else if (position >= -RealConstants.clawReverseLimit && speed > 0) {
+      clawMotor.set(0);
+    } else {
+      clawMotor.set(speed * RealConstants.clawSpeed);
+    }
   }
 
   public void setMotorReverse() {
@@ -66,9 +76,9 @@ public class Claw extends SubsystemBase {
     clawMotor.set(0);
   }
 
-  public void hold() {
+  /*public void hold() {
     clawMotor.set(holdPID.calculate(clawEnc.getVelocity(), 0));
-  }
+  }*/
 
   public double getPosition() {
     return clawEnc.getPosition();
@@ -79,14 +89,27 @@ public class Claw extends SubsystemBase {
   }
 
   public void setMotorVolts(double speed) {
-    clawMotor.setVoltage(speed);
+    double position = getPosition();
+    if (position <= -RealConstants.clawForwardLimit && speed < 0) {
+      clawMotor.setVoltage(0);
+    } else if (position >= -RealConstants.clawReverseLimit && speed > 0) {
+      clawMotor.setVoltage(0);
+    } else {
+      clawMotor.setVoltage(speed);
+    }
+
+    SmartDashboard.putNumber("Claw Speed", speed);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    isClosed = forewardLimit.isPressed();
-    isOpen = reverseLimit.isPressed();
+    // isClosed = forewardLimit.isPressed();
+    // isOpen = reverseLimit.isPressed();
+
+    SmartDashboard.putNumber("Claw Position", clawEnc.getPosition());
+    SmartDashboard.putNumber("Claw Velocity", clawEnc.getVelocity());
+    SmartDashboard.putNumber("Claw Hold PID", holdPID.calculate(clawEnc.getVelocity(), 0));
   }
 
   @Override

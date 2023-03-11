@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -19,14 +20,15 @@ public final class RealConstants extends Constants {
     public static final int kDriverControllerPort = 0;
   }
 
-  public static final double armSpeed = 0.55;
+  public static final double armSpeed = 0.70;
   public static final double driveSpeed = 0.95;
-  public static final double clawSpeed = 0.6;
+  public static final double clawSpeed = 0.98;
   public static final int kCPR = 42;
   public static final double speedConversionFactor = 1;
-  public static final double gearRatio = 10.71;
-  public static final double wheelDiameter = 0.15;
-  public static final double kMetersPerRev = (wheelDiameter * Math.PI / gearRatio);
+  public static final double gearRatioHigh = 4.77;
+  public static final double gearRatioLow = 20.67;
+  public static final double wheelDiameter = Units.inchesToMeters(6);
+  public static final double kMetersPerRev = (wheelDiameter * Math.PI / gearRatioHigh);
 
   public static final double kTrackwidthMeters = 0.69;
   public static final DifferentialDriveKinematics kDriveKinematics =
@@ -51,16 +53,18 @@ public final class RealConstants extends Constants {
   public static final double kRamseteB = 2;
   public static final double kRamseteZeta = 0.7;
 
-  public static final double kArmP = 0;
+  public static final double kArmP = 0.08;
   public static final double kArmI = 0;
   public static final double kArmD = 0;
+  public static final double kArmG = -0.3;
+  public static final double kArmV = 0;
 
-  public static final double kClawP = 0;
-  public static final double kClawI = 0;
+  public static final double kClawP = 0.1;
+  public static final double kClawI = 0.01;
   public static final double kClawD = 0;
 
-  public static final float armForwardLimit = 300;
-  public static final float armReverseLimit = 0;
+  public static final float armForwardLimit = 255;
+  public static final float armReverseLimit = 5;
 
   public static final double armGearRatio = 192;
   public static final double armConversionFactor = 360 / armGearRatio;
@@ -68,8 +72,10 @@ public final class RealConstants extends Constants {
   public static final double clawGearRatio = 144;
   public static final double clawConversionFactor = 360 / clawGearRatio;
 
-  public static final float clawForwardLimit = 135;
-  public static final float clawReverseLimit = 10;
+  public static final float clawForwardLimit = 90;
+  public static final float clawReverseLimit = -39;
+
+  public static final double kArmPositionToleranceDegrees = 5;
 
   public static final double kConePreload = 20;
   public static final double kCubePreload = 25;
