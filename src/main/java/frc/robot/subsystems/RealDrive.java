@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RealConstants;
 import java.util.function.DoubleSupplier;
 
@@ -77,6 +78,8 @@ public class RealDrive extends Drive {
   public void periodic() {
     // This method will be called once per scheduler run
     m_odometry.update(m_gyro.getRotation2d(), leftEnc.getPosition(), rightEnc.getPosition());
+
+    SmartDashboard.putNumber("Gyro Pitch", m_gyro.getPitch());
   }
 
   @Override

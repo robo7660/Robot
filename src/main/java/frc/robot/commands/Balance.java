@@ -20,6 +20,10 @@ public class Balance extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;
     addRequirements(drive);
+
+    SmartDashboard.putNumber("Balance P", 0);
+    SmartDashboard.putNumber("Balance I", 0);
+    SmartDashboard.putNumber("Balance D", 0);
   }
 
   // Called when the command is initially scheduled.
