@@ -16,12 +16,7 @@ public class AutonBalance extends SequentialCommandGroup {
   /** Creates a new BasicAuto. */
   public AutonBalance(Arm arm, Claw claw, Drive drive) {
     addCommands(
-        new SetArmPosition(arm, 190),
-        new SetClawPosition(claw, 90),
-        new Wait(1),
-        new SetClawPosition(claw, 0),
-        new SetArmPosition(arm, 25),
-        new DriveDistance(2, drive),
+        new DriveBalanceDistance(3.2, drive),
         new Balance(drive));
   }
 }

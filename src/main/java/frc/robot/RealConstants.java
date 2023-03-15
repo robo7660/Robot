@@ -79,4 +79,8 @@ public final class RealConstants extends Constants {
 
   public static final double kConePreload = 20;
   public static final double kCubePreload = 25;
+
+  public static final double absoluteOffset = 40;
+
+  public static final double kBalanceP = -0.08;
 }

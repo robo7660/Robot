@@ -4,10 +4,12 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxLimitSwitch;
 import edu.wpi.first.math.controller.PIDController;
@@ -30,10 +32,13 @@ public class Claw extends SubsystemBase {
       new PIDController(RealConstants.kClawP, RealConstants.kClawI, RealConstants.kClawD);
 
   private RelativeEncoder clawEnc = clawMotor.getEncoder();
+  private AbsoluteEncoder clawAbsEnc = clawMotor.getAbsoluteEncoder(Type.kDutyCycle);
 
   public Claw() {
     forewardLimit.enableLimitSwitch(true);
     reverseLimit.enableLimitSwitch(true);
+
+    clawAbsEnc.setZeroOffset(clawAbsEnc.getPosition());
 
     isClosed = forewardLimit.isPressed();
     isOpen = reverseLimit.isPressed();
@@ -84,6 +89,10 @@ public class Claw extends SubsystemBase {
     return clawEnc.getPosition();
   }
 
+  public void resetClawZero(){
+    clawAbsEnc.setPositionConversionFactor(clawAbsEnc.getPosition());
+  }
+
   public void setPreloadPos(double position) {
     clawEnc.setPosition(position);
   }
@@ -110,6 +119,8 @@ public class Claw extends SubsystemBase {
     SmartDashboard.putNumber("Claw Position", clawEnc.getPosition());
     SmartDashboard.putNumber("Claw Velocity", clawEnc.getVelocity());
     SmartDashboard.putNumber("Claw Hold PID", holdPID.calculate(clawEnc.getVelocity(), 0));
+
+    SmartDashboard.putNumber("Claw Absolute Position", clawAbsEnc.getPosition());
   }
 
   @Override

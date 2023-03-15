@@ -61,5 +61,7 @@ public class Drive extends SubsystemBase {
 
   public void setBrakeMode() {}
 
+  public void zeroPitch(){}
+
   public void setCoastMode() {}
 }

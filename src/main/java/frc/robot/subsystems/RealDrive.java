@@ -9,6 +9,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
@@ -25,6 +27,9 @@ public class RealDrive extends Drive {
 
   public RealDrive() {
     leftGroup.setInverted(true);
+
+    setBrakeMode();
+    zeroPitch();
 
     leftEnc.setPositionConversionFactor(RealConstants.kMetersPerRev);
     rightEnc.setPositionConversionFactor(RealConstants.kMetersPerRev);
@@ -66,6 +71,16 @@ public class RealDrive extends Drive {
   }
 
   @Override
+  public void setBrakeMode(){
+    leftBack.setIdleMode(IdleMode.kBrake);
+    leftMid.setIdleMode(IdleMode.kBrake);
+    leftFront.setIdleMode(IdleMode.kBrake);
+    rightBack.setIdleMode(IdleMode.kBrake);
+    rightMid.setIdleMode(IdleMode.kBrake);
+    rightFront.setIdleMode(IdleMode.kBrake);
+    }
+
+  @Override
   public void setArcadeDrive(double speed, double rotation) {
     driveTrain.arcadeDrive(speed, rotation);
   }
@@ -90,6 +105,11 @@ public class RealDrive extends Drive {
   @Override
   public Pose2d getPose() {
     return m_odometry.getPoseMeters();
+  }
+
+  @Override
+  public void zeroPitch(){
+    m_gyro.calibrate();
   }
 
   @Override
@@ -136,6 +156,6 @@ public class RealDrive extends Drive {
 
   @Override
   public double getAverageEncoderDistance() {
-    return (leftEnc.getPosition() + rightEnc.getPosition()) / 2;
+    return (-leftEnc.getPosition() + rightEnc.getPosition()) / 2;
   }
 }

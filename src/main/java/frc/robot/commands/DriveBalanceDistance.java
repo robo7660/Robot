@@ -9,18 +9,20 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.DoubleSubscriber;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 
 /** A command that will move the robot forward */
-public class DriveDistance extends CommandBase {
+public class DriveBalanceDistance extends CommandBase {
 
   private Drive m_drive;
   private PIDController m_PidControl;
   private double m_distance;
   private double setPoint;
+  private Timer m_timer;
 
   /**
    * Moves the robot a specified distance forward.
@@ -28,9 +30,11 @@ public class DriveDistance extends CommandBase {
    * @param distance Distance in inches to drive.
    * @param drive The drive subsystem to use
    */
-  public DriveDistance(double distance, Drive drive) {
+  public DriveBalanceDistance(double distance, Drive drive) {
     m_drive = drive;
     m_distance = distance;
+
+    m_timer = new Timer();
 
     SmartDashboard.putNumber("Drive P", Constants.DriveConstants.kDriveP);
     SmartDashboard.putNumber("Drive I", Constants.DriveConstants.kDriveI);
@@ -64,6 +68,9 @@ public class DriveDistance extends CommandBase {
 
     m_drive.setBrakeMode();
 
+    m_timer.reset();
+    m_timer.start();
+
     // Set the controller tolerance - the delta tolerance ensures the robot is stationary at the
     // setpoint before it is considered as having reached the reference
   }
@@ -90,6 +97,6 @@ public class DriveDistance extends CommandBase {
   @Override
   public boolean isFinished() {
     // End when the controller is at the reference.
-    return m_PidControl.atSetpoint();
+    return (m_PidControl.atSetpoint() || m_timer.hasElapsed(5));
   }
 }

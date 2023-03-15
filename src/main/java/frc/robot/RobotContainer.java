@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AutonBalance;
 import frc.robot.commands.AutonBasic;
+import frc.robot.commands.Balance;
+import frc.robot.commands.DriveBalanceDistance;
+import frc.robot.commands.DriveDistance;
 import frc.robot.commands.DriveTank;
 import frc.robot.commands.ManualArm;
 import frc.robot.commands.ManualClaw;
@@ -61,7 +64,6 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    configureBindings();
 
     if (RobotBase.isSimulation()) {
       m_drive = new SimDrive();
@@ -78,6 +80,8 @@ public class RobotContainer {
       m_arm.setDefaultCommand(new ManualArm(m_arm, coDriver::getLeftY));
       m_claw.setDefaultCommand(new ManualClaw(m_claw, coDriver::getRightY));
     }
+
+    configureBindings();
 
     Command basicAuto = new AutonBasic(m_arm, m_claw, m_drive);
     Command balanceAuto = new AutonBalance(m_arm, m_claw, m_drive);
@@ -113,10 +117,10 @@ public class RobotContainer {
 
     rightStickTrigger.whileTrue(new SwitchGears(m_gearShifter));
 
-    coDriverA.onTrue(new SetArmPosition(m_arm, 190));
-    coDriverB.onTrue(new SetArmPosition(m_arm, 15));
-    coDriverX.onTrue(new SetClawPosition(m_claw, 90));
-    coDriverY.onTrue(new SetClawPosition(m_claw, 10));
+    coDriverA.whileTrue(new Balance(m_drive));
+    coDriverB.onTrue(new SequentialCommandGroup(new DriveBalanceDistance(3.2, m_drive), new Balance(m_drive)));
+    coDriverX.onTrue(new DriveDistance(-4, m_drive));
+    coDriverY.onTrue(new DriveDistance(4, m_drive));
   }
 
   /**
