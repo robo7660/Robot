@@ -77,7 +77,7 @@ public final class RealConstants extends Constants {
 
   public static final double kArmPositionToleranceDegrees = 5;
 
-  public static final double kConePreload = 20;
+  public static final double kConePreload = 16.5;
   public static final double kCubePreload = 25;
 
   public static final double absoluteOffset = 40;

@@ -91,7 +91,7 @@ public class RobotContainer {
     Command driveTest = new DriveDistance(Units.inchesToMeters(5 * 12), m_drive);
 
     Command preloadCube = new SetPreloadPosition(m_claw, RealConstants.kCubePreload);
-    Command preloadCone = new SetPreloadPosition(m_claw, RealConstants.kConePreload);
+    Command preloadCone = new SequentialCommandGroup(new SetPreloadPosition(m_claw, RealConstants.kConePreload), new SetClawPosition(m_claw, 22));
 
     m_Chooser.setDefaultOption("Basic Auton", basicAuto);
     m_Chooser.addOption("Driveless Auton", drivelessAuto);
