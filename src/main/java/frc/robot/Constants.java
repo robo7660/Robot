@@ -17,15 +17,18 @@ public class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
-  public double driveSpeed = 0.7;
+  public double driveSpeed = 0.9;
   public double armSpeed = 0;
   public double clawSpeed = 0;
   public int kCPR = 0;
 
   public static class DriveConstants {
-    public static double kDriveP = 0.5;
-    public static double kDriveI = 0;
+    public static double kDriveP = 0.7;
+    public static double kDriveI = 0.1;
     public static double kDriveD = 0.0;
+
+    public static double kDriveBalanceP = 0.5;
+    public static double kDriveBalanceI = 0;
 
     public static double kDriveDistanceToleranceMeters = 0.01;
     public static double kDriveDistanceRateToleranceMetersPerS = 0.01;

@@ -36,8 +36,8 @@ public class DriveBalanceDistance extends CommandBase {
 
     m_timer = new Timer();
 
-    SmartDashboard.putNumber("Drive P", Constants.DriveConstants.kDriveP);
-    SmartDashboard.putNumber("Drive I", Constants.DriveConstants.kDriveI);
+    SmartDashboard.putNumber("Drive P", Constants.DriveConstants.kDriveBalanceP);
+    SmartDashboard.putNumber("Drive I", Constants.DriveConstants.kDriveBalanceI);
     SmartDashboard.putNumber("Drive D", Constants.DriveConstants.kDriveP);
 
     addRequirements(drive);
@@ -46,8 +46,8 @@ public class DriveBalanceDistance extends CommandBase {
   @Override
   public void initialize() {
 
-    double p = SmartDashboard.getNumber("Drive P", Constants.DriveConstants.kDriveP);
-    double i = SmartDashboard.getNumber("Drive I", Constants.DriveConstants.kDriveI);
+    double p = SmartDashboard.getNumber("Drive P", Constants.DriveConstants.kDriveBalanceP);
+    double i = SmartDashboard.getNumber("Drive I", Constants.DriveConstants.kDriveBalanceI);
     double d = SmartDashboard.getNumber("Drive D", Constants.DriveConstants.kDriveD);
 
     m_PidControl =

@@ -4,11 +4,7 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -32,9 +28,9 @@ public class DriveDistance extends CommandBase {
     m_drive = drive;
     m_distance = distance;
 
-    SmartDashboard.putNumber("Drive P", Constants.DriveConstants.kDriveP);
-    SmartDashboard.putNumber("Drive I", Constants.DriveConstants.kDriveI);
-    SmartDashboard.putNumber("Drive D", Constants.DriveConstants.kDriveP);
+    SmartDashboard.putNumber("Drive P", 0);
+    SmartDashboard.putNumber("Drive I", 0);
+    SmartDashboard.putNumber("Drive D", 0);
 
     addRequirements(drive);
   }
@@ -42,23 +38,21 @@ public class DriveDistance extends CommandBase {
   @Override
   public void initialize() {
 
-    double p = SmartDashboard.getNumber("Drive P", Constants.DriveConstants.kDriveP);
-    double i = SmartDashboard.getNumber("Drive I", Constants.DriveConstants.kDriveI);
-    double d = SmartDashboard.getNumber("Drive D", Constants.DriveConstants.kDriveD);
+    double p = SmartDashboard.getNumber("Drive P", 0);
+    double i = SmartDashboard.getNumber("Drive I", 0);
+    double d = SmartDashboard.getNumber("Drive D", 0);
 
     m_PidControl =
         new PIDController(
-            p,
-            i,
-            d);
+            Constants.DriveConstants.kDriveP,
+            Constants.DriveConstants.kDriveI,
+            Constants.DriveConstants.kDriveD);
     m_PidControl.setTolerance(
         Constants.DriveConstants.kDriveDistanceToleranceMeters,
         Constants.DriveConstants.kDriveDistanceRateToleranceMetersPerS);
 
     double target = m_distance + m_drive.getAverageEncoderDistance();
     System.out.println("At " + m_drive.getAverageEncoderDistance() + " going to " + target);
-
-    SmartDashboard.putNumber("Actual P", m_PidControl.getP());
 
     setPoint = m_drive.getAverageEncoderDistance() + m_distance;
 
@@ -71,9 +65,12 @@ public class DriveDistance extends CommandBase {
   @Override
   public void execute() {
     double pidSpeed = m_PidControl.calculate(m_drive.getAverageEncoderDistance(), setPoint);
-    double runSpeed = MathUtil.clamp(pidSpeed, -0.6, 0.6);
-    m_drive.setArcadeDrive(runSpeed, 0);
-    SmartDashboard.putNumber("distance", m_drive.getAverageEncoderDistance());
+    if (pidSpeed > 0.9) {
+      pidSpeed = 0.9;
+    } else if (pidSpeed < -0.9) {
+      pidSpeed = -0.9;
+    }
+    m_drive.setArcadeDrive(pidSpeed, 0);
     SmartDashboard.putNumber(
         "Wheel Speed via PID",
         m_PidControl.calculate(m_drive.getAverageEncoderDistance(), setPoint));
@@ -81,7 +78,6 @@ public class DriveDistance extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    m_drive.setArcadeDrive(0, 0);
     m_drive.setCoastMode();
     System.out.println(
         "At " + m_drive.getAverageEncoderDistance() + " target " + setPoint + " Done!");

@@ -19,6 +19,7 @@ import frc.robot.commands.Balance;
 import frc.robot.commands.DriveBalanceDistance;
 import frc.robot.commands.DriveDistance;
 import frc.robot.commands.DriveTank;
+import frc.robot.commands.DrivelessAuto;
 import frc.robot.commands.ManualArm;
 import frc.robot.commands.ManualClaw;
 import frc.robot.commands.SetArmPosition;
@@ -85,11 +86,13 @@ public class RobotContainer {
 
     Command basicAuto = new AutonBasic(m_arm, m_claw, m_drive);
     Command balanceAuto = new AutonBalance(m_arm, m_claw, m_drive);
+    Command drivelessAuto = new DrivelessAuto(m_arm, m_claw, m_drive);
 
     Command preloadCube = new SetPreloadPosition(m_claw, RealConstants.kCubePreload);
     Command preloadCone = new SetPreloadPosition(m_claw, RealConstants.kConePreload);
 
     m_Chooser.setDefaultOption("Basic Auton", basicAuto);
+    m_Chooser.addOption("Driveless Auton", drivelessAuto);
     m_Chooser.addOption("Balance Auton", balanceAuto);
 
     m_preloadChooser.setDefaultOption("Cube Preload", preloadCube);
