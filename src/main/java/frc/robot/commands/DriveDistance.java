@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -28,9 +29,9 @@ public class DriveDistance extends CommandBase {
     m_drive = drive;
     m_distance = distance;
 
-    SmartDashboard.putNumber("Drive P", 0);
-    SmartDashboard.putNumber("Drive I", 0);
-    SmartDashboard.putNumber("Drive D", 0);
+    SmartDashboard.putNumber("DriveDist P", 0);
+    SmartDashboard.putNumber("DriveDist I", 0);
+    SmartDashboard.putNumber("DriveDist D", 0);
 
     addRequirements(drive);
   }
@@ -38,9 +39,9 @@ public class DriveDistance extends CommandBase {
   @Override
   public void initialize() {
 
-    double p = SmartDashboard.getNumber("Drive P", 0);
-    double i = SmartDashboard.getNumber("Drive I", 0);
-    double d = SmartDashboard.getNumber("Drive D", 0);
+    double p = SmartDashboard.getNumber("DriveDist P", 0);
+    double i = SmartDashboard.getNumber("DriveDist I", 0);
+    double d = SmartDashboard.getNumber("DriveDist D", 0);
 
     m_PidControl =
         new PIDController(
@@ -65,20 +66,17 @@ public class DriveDistance extends CommandBase {
   @Override
   public void execute() {
     double pidSpeed = m_PidControl.calculate(m_drive.getAverageEncoderDistance(), setPoint);
-    if (pidSpeed > 0.9) {
-      pidSpeed = 0.9;
-    } else if (pidSpeed < -0.9) {
-      pidSpeed = -0.9;
-    }
-    m_drive.setArcadeDrive(pidSpeed, 0);
+    double driveSpeed = MathUtil.clamp(pidSpeed, -0.8, 0.8);
+    m_drive.tankDriveDouble(driveSpeed, driveSpeed);
     SmartDashboard.putNumber(
         "Wheel Speed via PID",
         m_PidControl.calculate(m_drive.getAverageEncoderDistance(), setPoint));
+    SmartDashboard.putNumber("Auto Distance", m_drive.getAverageEncoderDistance());
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_drive.setCoastMode();
+    m_drive.setArcadeDrive(0, 0);
     System.out.println(
         "At " + m_drive.getAverageEncoderDistance() + " target " + setPoint + " Done!");
   }

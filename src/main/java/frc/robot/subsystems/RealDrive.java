@@ -127,6 +127,11 @@ public class RealDrive extends Drive {
   }
 
   @Override
+  public void tankDriveDouble(double leftSpeed, double rightSpeed){
+    driveTrain.tankDrive(leftSpeed, rightSpeed);
+  }
+
+  @Override
   public void zeroEncoders() {
     leftEnc.setPosition(0);
     rightEnc.setPosition(0);

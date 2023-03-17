@@ -82,5 +82,5 @@ public final class RealConstants extends Constants {
 
   public static final double absoluteOffset = 40;
 
-  public static final double kBalanceP = -0.08;
+  public static final double kBalanceP = -0.07;
 }
