@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,11 +28,13 @@ import frc.robot.commands.SetArmPosition;
 import frc.robot.commands.SetClawPosition;
 import frc.robot.commands.SetPreloadPosition;
 import frc.robot.commands.SwitchGears;
+import frc.robot.commands.ZeroArm;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.GearShifter;
+import frc.robot.subsystems.Power;
 import frc.robot.subsystems.RealDrive;
 import frc.robot.subsystems.SimDrive;
 
@@ -54,6 +57,7 @@ public class RobotContainer {
   private final Constants m_simConstants = new SimConstants();
   private final Arm m_arm = new Arm();
   private final Claw m_claw = new Claw();
+  private final Power m_power = new Power();
 
   SendableChooser<Command> m_Chooser = new SendableChooser<>();
   SendableChooser<Command> m_preloadChooser = new SendableChooser<>();
@@ -81,6 +85,9 @@ public class RobotContainer {
               m_drive, leftStick::getLeftY, rightStick::getLeftY, m_constants.driveSpeed));
       m_arm.setDefaultCommand(new ManualArm(m_arm, coDriver::getLeftY));
       m_claw.setDefaultCommand(new ManualClaw(m_claw, coDriver::getRightY));
+
+      SmartDashboard.putNumber("Current Brownout", RobotController.getBrownoutVoltage()); 
+      RobotController.setBrownoutVoltage(5.5);
     }
 
     configureBindings();
@@ -123,7 +130,7 @@ public class RobotContainer {
 
     rightStickTrigger.whileTrue(new SwitchGears(m_gearShifter));
 
-    coDriverA.whileTrue(new Balance(m_drive));
+    coDriverA.onTrue(new ZeroArm(m_arm));
     coDriverB.onTrue(new SequentialCommandGroup(new DriveBalanceDistance(3.2, m_drive), new Balance(m_drive)));
     coDriverX.onTrue(new DriveDistance(-4, m_drive));
     coDriverY.onTrue(new DriveDistance(4, m_drive));

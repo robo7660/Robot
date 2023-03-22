@@ -20,8 +20,8 @@ public final class RealConstants extends Constants {
     public static final int kDriverControllerPort = 0;
   }
 
-  public static final double armSpeed = 0.70;
-  public static final double driveSpeed = 0.95;
+  public static final double armSpeed = 0.55;
+  public static final double driveSpeed = 0.6;
   public static final double clawSpeed = 0.98;
   public static final int kCPR = 42;
   public static final double speedConversionFactor = 1;

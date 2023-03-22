@@ -78,7 +78,7 @@ public class DriveBalanceDistance extends CommandBase {
   @Override
   public void execute() {
     double pidSpeed = m_PidControl.calculate(m_drive.getAverageEncoderDistance(), setPoint);
-    double runSpeed = MathUtil.clamp(pidSpeed, -0.6, 0.6);
+    double runSpeed = MathUtil.clamp(pidSpeed, -0.5, 0.5);
     m_drive.setArcadeDrive(runSpeed, 0);
     SmartDashboard.putNumber("distance", m_drive.getAverageEncoderDistance());
     SmartDashboard.putNumber(
