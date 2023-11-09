@@ -27,6 +27,7 @@ import frc.robot.commands.ManualClaw;
 import frc.robot.commands.SetClawPosition;
 import frc.robot.commands.SetPreloadPosition;
 import frc.robot.commands.SwitchGears;
+import frc.robot.commands.Whopper23Auton;
 import frc.robot.commands.ZeroArm;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
@@ -95,6 +96,7 @@ public class RobotContainer {
     Command balanceAuto = new AutonBalance(m_arm, m_claw, m_drive);
     Command drivelessAuto = new DrivelessAuto(m_arm, m_claw, m_drive);
     Command driveTest = new DriveDistance(Units.inchesToMeters(5 * 12), m_drive);
+    Command wapurAuton = new Whopper23Auton(m_arm, m_claw, m_drive);
 
     Command preloadCube = new SetPreloadPosition(m_claw, RealConstants.kCubePreload);
     Command preloadCone =
@@ -106,6 +108,7 @@ public class RobotContainer {
     m_Chooser.addOption("Driveless Auton", drivelessAuto);
     m_Chooser.addOption("Balance Auton", balanceAuto);
     m_Chooser.addOption("Drive Only(Test)", driveTest);
+    m_Chooser.addOption("Whopper Auton", wapurAuton);
 
     m_preloadChooser.setDefaultOption("Cube Preload", preloadCube);
     m_preloadChooser.addOption("Cone Preload", preloadCone);
