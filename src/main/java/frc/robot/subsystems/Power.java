@@ -29,7 +29,7 @@ public class Power extends SubsystemBase {
   }
 
   public void update() {
-    for (int i=0; i < numChannels; i++) {
+    for (int i = 0; i < numChannels; i++) {
       SmartDashboard.putNumber("PDP" + i, m_pdp.getCurrent(i));
     }
   }

@@ -61,9 +61,9 @@ public class Drive extends SubsystemBase {
 
   public void setBrakeMode() {}
 
-  public void tankDriveDouble(double leftSpeed, double rightSpeed){}
+  public void tankDriveDouble(double leftSpeed, double rightSpeed) {}
 
-  public void zeroPitch(){}
+  public void zeroPitch() {}
 
   public void setCoastMode() {}
 }

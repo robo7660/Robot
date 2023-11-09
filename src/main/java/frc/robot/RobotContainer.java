@@ -24,7 +24,6 @@ import frc.robot.commands.DriveTank;
 import frc.robot.commands.DrivelessAuto;
 import frc.robot.commands.ManualArm;
 import frc.robot.commands.ManualClaw;
-import frc.robot.commands.SetArmPosition;
 import frc.robot.commands.SetClawPosition;
 import frc.robot.commands.SetPreloadPosition;
 import frc.robot.commands.SwitchGears;
@@ -86,7 +85,7 @@ public class RobotContainer {
       m_arm.setDefaultCommand(new ManualArm(m_arm, coDriver::getLeftY));
       m_claw.setDefaultCommand(new ManualClaw(m_claw, coDriver::getRightY));
 
-      SmartDashboard.putNumber("Current Brownout", RobotController.getBrownoutVoltage()); 
+      SmartDashboard.putNumber("Current Brownout", RobotController.getBrownoutVoltage());
       RobotController.setBrownoutVoltage(5.5);
     }
 
@@ -98,7 +97,10 @@ public class RobotContainer {
     Command driveTest = new DriveDistance(Units.inchesToMeters(5 * 12), m_drive);
 
     Command preloadCube = new SetPreloadPosition(m_claw, RealConstants.kCubePreload);
-    Command preloadCone = new SequentialCommandGroup(new SetPreloadPosition(m_claw, RealConstants.kConePreload), new SetClawPosition(m_claw, 22));
+    Command preloadCone =
+        new SequentialCommandGroup(
+            new SetPreloadPosition(m_claw, RealConstants.kConePreload),
+            new SetClawPosition(m_claw, 22));
 
     m_Chooser.setDefaultOption("Basic Auton", basicAuto);
     m_Chooser.addOption("Driveless Auton", drivelessAuto);
@@ -131,7 +133,8 @@ public class RobotContainer {
     rightStickTrigger.whileTrue(new SwitchGears(m_gearShifter));
 
     coDriverA.onTrue(new ZeroArm(m_arm));
-    coDriverB.onTrue(new SequentialCommandGroup(new DriveBalanceDistance(3.2, m_drive), new Balance(m_drive)));
+    coDriverB.onTrue(
+        new SequentialCommandGroup(new DriveBalanceDistance(3.2, m_drive), new Balance(m_drive)));
     coDriverX.onTrue(new DriveDistance(-4, m_drive));
     coDriverY.onTrue(new DriveDistance(4, m_drive));
   }

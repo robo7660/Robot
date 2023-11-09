@@ -4,11 +4,8 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -50,11 +47,7 @@ public class DriveBalanceDistance extends CommandBase {
     double i = SmartDashboard.getNumber("DriveBal I", Constants.DriveConstants.kDriveBalanceI);
     double d = SmartDashboard.getNumber("DriveBal D", Constants.DriveConstants.kDriveD);
 
-    m_PidControl =
-        new PIDController(
-            p,
-            i,
-            d);
+    m_PidControl = new PIDController(p, i, d);
     m_PidControl.setTolerance(
         Constants.DriveConstants.kDriveDistanceToleranceMeters,
         Constants.DriveConstants.kDriveDistanceRateToleranceMetersPerS);

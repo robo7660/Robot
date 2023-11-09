@@ -76,7 +76,7 @@ public class Arm extends SubsystemBase {
     return Units.degreesToRadians(armEnc.getVelocity());
   }
 
-  public void setZero(){
+  public void setZero() {
     armEnc.setPosition(0);
   }
 

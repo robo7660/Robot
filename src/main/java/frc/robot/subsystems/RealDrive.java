@@ -6,11 +6,10 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxRelativeEncoder;
-import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
@@ -71,14 +70,14 @@ public class RealDrive extends Drive {
   }
 
   @Override
-  public void setBrakeMode(){
+  public void setBrakeMode() {
     leftBack.setIdleMode(IdleMode.kBrake);
     leftMid.setIdleMode(IdleMode.kBrake);
     leftFront.setIdleMode(IdleMode.kBrake);
     rightBack.setIdleMode(IdleMode.kBrake);
     rightMid.setIdleMode(IdleMode.kBrake);
     rightFront.setIdleMode(IdleMode.kBrake);
-    }
+  }
 
   @Override
   public void setArcadeDrive(double speed, double rotation) {
@@ -108,7 +107,7 @@ public class RealDrive extends Drive {
   }
 
   @Override
-  public void zeroPitch(){
+  public void zeroPitch() {
     m_gyro.calibrate();
   }
 
@@ -127,7 +126,7 @@ public class RealDrive extends Drive {
   }
 
   @Override
-  public void tankDriveDouble(double leftSpeed, double rightSpeed){
+  public void tankDriveDouble(double leftSpeed, double rightSpeed) {
     driveTrain.tankDrive(leftSpeed, rightSpeed);
   }
 

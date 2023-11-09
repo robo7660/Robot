@@ -9,8 +9,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import com.revrobotics.SparkMaxLimitSwitch;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -89,7 +89,7 @@ public class Claw extends SubsystemBase {
     return clawEnc.getPosition();
   }
 
-  public void resetClawZero(){
+  public void resetClawZero() {
     clawAbsEnc.setPositionConversionFactor(clawAbsEnc.getPosition());
   }
 
