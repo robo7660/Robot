@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.CANcoder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveDriveWheel {
   // create a class for swervedrive wheels
@@ -25,10 +26,13 @@ public class SwerveDriveWheel {
     turnController = new PIDController(P, I, D);
     this.speedMotor = speedMotor;
     driveInverted = speedInverted;
+    
+    SmartDashboard.putNumber("Turn P", 0);
+    SmartDashboard.putNumber("Turn I", 0);
+    SmartDashboard.putNumber("Turn D", 0);
   }
 
   public void setDirection(double setpoint) {
-    turnController.reset();
 
     // calculate the closest angle to the setpoint, as well as make use
     // of the wheel's ability to turn 180 degrees and go backward with a flipped angle
@@ -48,6 +52,18 @@ public class SwerveDriveWheel {
 
     double speed = turnController.calculate(currentAngle);
     turnMotor.set(speed);
+  }
+
+  public void setP(double p){
+    turnController.setP(p);
+  }
+
+  public void setI(double i){
+    turnController.setI(i);
+  }
+
+  public void setD(double d){
+    turnController.setD(d);
   }
 
   public void setSpeed(double speed) {

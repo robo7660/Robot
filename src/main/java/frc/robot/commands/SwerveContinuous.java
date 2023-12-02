@@ -4,23 +4,26 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
 public class SwerveContinuous extends CommandBase {
   /** Creates a new SwerveContinuous. */
-  double dir;
-
-  double speed;
-  double twist;
+  DoubleSupplier dir;
+  DoubleSupplier speed;
+  DoubleSupplier twist;
   Drive drive;
 
-  public SwerveContinuous(double direction, double speed, double turn, Drive drive) {
+  public SwerveContinuous(DoubleSupplier direction, DoubleSupplier speed, DoubleSupplier turn, Drive drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     dir = direction;
     this.speed = speed;
     twist = turn;
     this.drive = drive;
+
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
@@ -30,11 +33,8 @@ public class SwerveContinuous extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    dir -= drive.getGyroPosition();
-
-    drive.setCoordinator(dir, speed, twist);
+    drive.setCoordinator(dir.getAsDouble() - drive.getGyroPosition(), speed.getAsDouble(), twist.getAsDouble());
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}

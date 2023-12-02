@@ -35,9 +35,9 @@ public class RobotContainer {
     configureBindings();
     m_drive.setDefaultCommand(
         new SwerveContinuous(
-            joystick1.getDirectionDegrees(),
-            joystick1.getMagnitude(),
-            joystick1.getTwist(),
+            joystick1::getDirectionDegrees,
+            joystick1::getY,
+            joystick1::getTwist,
             m_drive));
   }
 
