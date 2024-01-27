@@ -11,6 +11,12 @@ public class RunClimbWinch extends Command {
   /** Creates a new RunClimbWinch. */
   private Climb climb;
 
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    climb.runWinch();
+  }
+
   public RunClimbWinch(Climb climb) {
     this.climb = climb;
     addRequirements(climb);
@@ -21,21 +27,19 @@ public class RunClimbWinch extends Command {
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    climb.runWinch();
-  }
-
+  //This code isn't necessary, but we're keeping it to make sure
+  // that it doesn't past the end of the winch.
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+  //Calling clime.stopWinch isn't necessary, but we're keeping it to make sure
+  // that it doesn't past the end of the winch.
     climb.stopWinch();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climb.getWinchLimit();
+    return climb.winchLimitIsReached();
   }
 }

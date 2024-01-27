@@ -35,7 +35,7 @@ public class Climb extends SubsystemBase {
     armExtended = true;
   }
 
-  public boolean getWinchLimit() {
+  public boolean winchLimitIsReached() {
     return winchLimit.get();
   }
 
