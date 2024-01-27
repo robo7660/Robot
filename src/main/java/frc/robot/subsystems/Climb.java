@@ -4,13 +4,12 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climb extends SubsystemBase {
@@ -21,8 +20,7 @@ public class Climb extends SubsystemBase {
   private DigitalInput winchLimit = new DigitalInput(0);
 
   /** Creates a new Climb. */
-  public Climb() {
-  }
+  public Climb() {}
 
   @Override
   public void periodic() {
@@ -37,7 +35,7 @@ public class Climb extends SubsystemBase {
     armExtended = true;
   }
 
-  public boolean getWinchLimit(){
+  public boolean getWinchLimit() {
     return winchLimit.get();
   }
 

@@ -9,6 +9,7 @@ import frc.robot.subsystems.Climb;
 
 public class ReleaseClimb extends Command {
   private Climb climb;
+
   /** Creates a new ReleaseClimb. */
   public ReleaseClimb(Climb climb) {
     this.climb = climb;
