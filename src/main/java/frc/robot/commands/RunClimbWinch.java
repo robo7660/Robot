@@ -27,13 +27,13 @@ public class RunClimbWinch extends Command {
   @Override
   public void initialize() {}
 
-  //This code isn't necessary, but we're keeping it to make sure
+  // This code isn't necessary, but we're keeping it to make sure
   // that it doesn't past the end of the winch.
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  //Calling clime.stopWinch isn't necessary, but we're keeping it to make sure
-  // that it doesn't past the end of the winch.
+    // Calling clime.stopWinch isn't necessary, but we're keeping it to make sure
+    // that it doesn't past the end of the winch.
     climb.stopWinch();
   }
 
