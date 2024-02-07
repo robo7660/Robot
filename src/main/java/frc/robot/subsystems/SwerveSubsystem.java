@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
@@ -23,6 +25,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.io.File;
+import java.util.List;
 import java.util.function.DoubleSupplier;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
@@ -134,6 +137,21 @@ public class SwerveSubsystem extends SubsystemBase {
 
     // Create a path following command using AutoBuilder. This will also trigger event markers.
     return auto;
+  }
+
+  public Command getTestCommand() {
+    List<Translation2d> bezierPoints =
+        PathPlannerPath.bezierFromPoses(
+            new Pose2d(1.0, 1.0, Rotation2d.fromDegrees(0)),
+            new Pose2d(2.0, 1.0, Rotation2d.fromDegrees(0)),
+            new Pose2d(1.0, 2.0, Rotation2d.fromDegrees(90)));
+
+    PathPlannerPath path =
+        new PathPlannerPath(
+            bezierPoints,
+            new PathConstraints(1.0, 3.0, 2 * Math.PI, 4 * Math.PI),
+            new GoalEndState(0.0, Rotation2d.fromDegrees(-90)));
+    return AutoBuilder.followPath(path);
   }
 
   /**
