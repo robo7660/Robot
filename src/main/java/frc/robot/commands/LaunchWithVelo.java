@@ -42,7 +42,7 @@ public class LaunchWithVelo extends Command {
   @Override
   public void execute() {
     if (launcher.readyToLaunch(launchVelo)) {
-      index.start();
+      index.feed();
     }
   }
 

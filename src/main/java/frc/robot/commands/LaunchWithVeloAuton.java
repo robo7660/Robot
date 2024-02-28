@@ -57,6 +57,6 @@ public class LaunchWithVeloAuton extends Command {
   @Override
   public boolean isFinished() {
     // Only called on button hold and done when button released
-    return switchTimer.hasElapsed(.5);
+    return true;
   }
 }

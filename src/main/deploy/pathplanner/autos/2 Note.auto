@@ -2,68 +2,63 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.9464048057910655,
-      "y": 2.599805713163495
+      "x": 1.3771774811958186,
+      "y": 2.0
     },
-    "rotation": 0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "Auton 2 pt1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "launch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Auton 2 pt2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Auton 2 pt3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intake"
-          }
-        },
-        {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Auton 2 pt4"
+                  "name": "align"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "index"
+                  "name": "launch"
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "launch"
+            "pathName": "2 piece 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2 piece 2"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "align"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "launch"
+                }
+              }
+            ]
           }
         }
       ]

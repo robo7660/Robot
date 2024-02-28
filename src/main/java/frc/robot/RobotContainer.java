@@ -67,15 +67,15 @@ public class RobotContainer {
             // Applies deadbands and inverts controls because joysticks
             // are back-right positive while robot
             // controls are front-left positive
-            () -> MathUtil.applyDeadband(driver.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
-            () -> MathUtil.applyDeadband(driver.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-            () -> driver.getRightX(),
+            () -> MathUtil.applyDeadband(-driver.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
+            () -> MathUtil.applyDeadband(-driver.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
+            () -> -driver.getRightX(),
             () -> -driver.getRightY());
 
     m_swerve.setDefaultCommand(
         !RobotBase.isSimulation() ? closedAbsoluteDrive : closedAbsoluteDrive);
 
-    m_index.setDefaultCommand(m_index.manualIntake(coDriver::getRightY));
+    //-m_index.setDefaultCommand(m_index.manualIntake(coDriver::getRightY));
 
     m_climb.setDefaultCommand(m_climb.setWinchCommand(coDriver::getLeftY));
 
@@ -83,11 +83,8 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Test Drive", m_swerve.getAutonomousCommand("Test Drive"));
 
     m_chooser.addOption(
-        "2 Note Midfield Auton Blue", m_swerve.getAutonomousCommand("2 Note Midfield Auton Blue"));
-    m_chooser.addOption(
-        "2 Note Midfield Auton Red", m_swerve.getAutonomousCommand("2 Note Midfield Auton Red"));
-    m_chooser.addOption("4 Note Auton Blue", m_swerve.getAutonomousCommand("4 Note Auton Blue"));
-    m_chooser.addOption("4 Note Auton Red", m_swerve.getAutonomousCommand("4 Note Auton Red"));
+        "2 Note", m_swerve.getAutonomousCommand("2 Note"));
+    m_chooser.addOption("4 Note", m_swerve.getAutonomousCommand("4 Note"));
     m_chooser.addOption("Turn Auto", m_swerve.getAutonomousCommand("Turn Auto"));
     m_chooser.addOption("Drive and Turn", m_swerve.getAutonomousCommand("drive and turn"));
     SmartDashboard.putData(m_chooser);

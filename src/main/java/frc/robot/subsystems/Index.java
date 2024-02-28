@@ -24,7 +24,7 @@ public class Index extends SubsystemBase {
   private DigitalInput upperBreakBeam = new DigitalInput(Constants.Index.upperBeam);
   // init variables speed and currentSpeed
   double currentSpeed = 0;
-  double speed = 3.5;
+  double speed = 0.95;
 
   public Index() {
     motorLower.setInverted(Constants.Index.lowerInverted);
@@ -35,8 +35,12 @@ public class Index extends SubsystemBase {
   private void set(double power) {
     motorLower.set(power);
     motorWhooper.set(power);
-    motorUpper.set(power);
+    motorUpper.set(power - 0.5);
     currentSpeed = power;
+  }
+
+  public void feed(){
+    motorUpper.set(0.9);
   }
 
   public void setUpper(double speed) {
@@ -72,7 +76,9 @@ public class Index extends SubsystemBase {
   }
 
   public void stop() {
-    set(0.0);
+    motorLower.set(0);
+    motorWhooper.set(0);
+    motorUpper.set(0);
   }
 
   public boolean isPrimed() {
@@ -97,9 +103,9 @@ public class Index extends SubsystemBase {
     return !lowerBreakBeam.get();
   }
 
-  public Command manualIntake(DoubleSupplier speedSupplier) {
+  /*public Command manualIntake(DoubleSupplier speedSupplier) {
     return this.run(() -> set(-speedSupplier.getAsDouble()));
-  }
+  }*/
 
   @Override
   public void periodic() {
