@@ -568,10 +568,11 @@ public class SwerveSubsystem extends SubsystemBase
     setRotation(-rotation);
   }
 
-  public void align() {
+  public boolean align() {
     boolean hasTarget = LimelightHelpers.getTV("");
     double targetValue = LimelightHelpers.getLimelightNTTableEntry("limelight", "tid").getDouble(0);
-    double offset = Units.degreesToRadians(LimelightHelpers.getTX(Constants.limelightName));
+    double offsetDegrees = LimelightHelpers.getTX(Constants.limelightName);
+    double offset = Units.degreesToRadians(offsetDegrees);
     boolean isSpeaker = targetValue == 4 || targetValue == 7;
     System.out.println(
         "Limelight has target === "
@@ -583,7 +584,11 @@ public class SwerveSubsystem extends SubsystemBase
     if (hasTarget && isSpeaker) {
       double newRotation = getHeading().getRadians() - offset;
       setRotation(newRotation);
+    } else {
+      double newRotation = getHeading().getRadians() - Units.degreesToRadians(20);
     }
+
+    return ((5 >= offsetDegrees) && (-5<= offsetDegrees) && hasTarget);
   }
 
   public void resetToDashboard() {

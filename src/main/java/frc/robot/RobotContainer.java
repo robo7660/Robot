@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AbsoluteDrive;
+import frc.robot.commands.AlignLaunchAuto;
 import frc.robot.commands.LaunchWithVelo;
 import frc.robot.commands.LaunchWithVeloAuton;
 import frc.robot.commands.PrimeIndex;
@@ -54,9 +55,10 @@ public class RobotContainer {
 
     // Create commands for PathPlanner
     NamedCommands.registerCommand(
-        "launch", new LaunchWithVeloAuton(m_launch, m_index, Constants.Launch.speedCloseSpeaker));
+        "launch", new LaunchWithVeloAuton(m_launch, m_index, Constants.Launch.speedFarSpeaker));
     NamedCommands.registerCommand("intake", new ToggleIntake(m_intake));
     NamedCommands.registerCommand("index", new PrimeIndex(m_index));
+    NamedCommands.registerCommand("align-launch", new AlignLaunchAuto(m_swerve, m_launch, 3000, 1));
 
     // Configure the trigger bindings
     configureBindings();

@@ -72,7 +72,7 @@ public final class Constants {
     public static final boolean angleEncoderInverted = true;
     public static final boolean lowerMotorInverted = true;
     public static final boolean upperMotorInverted = false;
-    public static final double speedCloseSpeaker = 0.9;
+    public static final double speedFarSpeaker = 2800;
     public static final double angleConversionFactor = 1000;
     public static final double launcherConversionFactor = 1;
 
