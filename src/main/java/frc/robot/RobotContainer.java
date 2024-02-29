@@ -90,7 +90,7 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Test Drive", m_swerve.getAutonomousCommand("Test Drive"));
 
     m_chooser.addOption(
-        "2 Note", m_swerve.getAutonomousCommand("2 Note"));
+        "Mid 2 Piece", m_swerve.getAutonomousCommand("Mid 2 Piece"));
     m_chooser.addOption("4 Note", m_swerve.getAutonomousCommand("4 Note"));
     m_chooser.addOption("Turn Auto", m_swerve.getAutonomousCommand("Turn Auto"));
     m_chooser.addOption("Drive and Turn", m_swerve.getAutonomousCommand("drive and turn"));

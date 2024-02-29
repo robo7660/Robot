@@ -581,12 +581,13 @@ public class SwerveSubsystem extends SubsystemBase
     if (hasTarget && isSpeaker) {
       double newRotation = getHeading().getRadians() - offset;
       setRotation(newRotation);
+      return ((5 >= offsetDegrees) && (-5 <= offsetDegrees));
     } /*else {
       double newRotation = getHeading().getRadians() + Units.degreesToRadians(20) * (Robot.alliance == Alliance.Blue ? -1 : 1);
       setRotation(newRotation);
     }*/
 
-    return ((5 >= offsetDegrees) && (-5<= offsetDegrees) && hasTarget);
+    return (true);
   }
 
   public void resetToDashboard() {

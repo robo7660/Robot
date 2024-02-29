@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4,
-      "y": 2.0
+      "x": 0.54,
+      "y": 2.14
     },
     "rotation": 180.0
   },
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2 piece 1"
+            "pathName": "Mid 2 Piece 1"
           }
         },
         {
@@ -26,13 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2 piece 2"
+            "pathName": "Mid 2 Piece 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2 piece 3"
+            "pathName": "Mid 2 Piece 3"
           }
         },
         {

@@ -33,7 +33,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4 piece 1"
+            "pathName": null
           }
         },
         {
@@ -45,7 +45,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4 piece 2"
+            "pathName": null
           }
         }
       ]
