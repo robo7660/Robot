@@ -94,6 +94,12 @@ public class RobotContainer {
     m_chooser.addOption("4 Note", m_swerve.getAutonomousCommand("4 Note"));
     m_chooser.addOption("Turn Auto", m_swerve.getAutonomousCommand("Turn Auto"));
     m_chooser.addOption("Drive and Turn", m_swerve.getAutonomousCommand("drive and turn"));
+    m_chooser.addOption("1 Centerline", m_swerve.getAutonomousCommand("1 Centerline"));   
+    m_chooser.addOption("2 Centerline", m_swerve.getAutonomousCommand("2 Centerline"));
+    m_chooser.addOption("3 Centerline", m_swerve.getAutonomousCommand("3 Centerline"));
+    m_chooser.addOption("4 Centerline", m_swerve.getAutonomousCommand("4 Centerline"));
+    m_chooser.addOption("5 Centerline", m_swerve.getAutonomousCommand("5 Centerline"));
+
     SmartDashboard.putData(m_chooser);
   }
 
