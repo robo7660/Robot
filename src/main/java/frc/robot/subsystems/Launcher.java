@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
@@ -45,6 +46,8 @@ public class Launcher extends SubsystemBase {
     angle.setInverted(Constants.Launch.angleMotorInverted);
     upperLauncher.setInverted(Constants.Launch.upperMotorInverted);
     lowerLauncher.setInverted(Constants.Launch.lowerMotorInverted);
+    angle.setIdleMode(IdleMode.kCoast);
+
 
     angleController = angle.getPIDController();
     upperLauncherController = upperLauncher.getPIDController();

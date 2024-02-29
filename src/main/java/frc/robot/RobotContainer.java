@@ -5,6 +5,8 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.NamedCommands;
+
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -59,6 +61,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("intake", new ToggleIntake(m_intake));
     NamedCommands.registerCommand("index", new PrimeIndex(m_index));
     NamedCommands.registerCommand("align-launch", new AlignLaunchAuto(m_swerve, m_launch, 3000, 1));
+    NamedCommands.registerCommand("reverse intake", m_intake.reverseIntakeCommand());
+
+    CameraServer.startAutomaticCapture();
 
     // Configure the trigger bindings
     configureBindings();
