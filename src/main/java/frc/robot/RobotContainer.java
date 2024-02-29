@@ -155,4 +155,8 @@ public class RobotContainer {
   public void setMotorBrake(boolean brake) {
     m_swerve.setMotorBrake(brake);
   }
+
+  public void updatePose() {
+    m_swerve.updatePositionCommand();
+  }
 }

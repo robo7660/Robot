@@ -545,6 +545,9 @@ public class SwerveSubsystem extends SubsystemBase
 
   public void resetToLimelight() {
     boolean hasTarget = LimelightHelpers.getTV(Constants.limelightName);
+    while (!hasTarget) {
+      hasTarget = LimelightHelpers.getTV(Constants.limelightName);
+    }
     Pose2d pose;
     if (Robot.alliance == Alliance.Red && hasTarget) {
       pose = LimelightHelpers.getBotPose2d_wpiRed(Constants.limelightName);

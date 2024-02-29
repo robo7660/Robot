@@ -93,6 +93,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     getAlliance();
+    m_robotContainer.updatePose();
   }
 
   /** This function is called periodically during operator control. */
