@@ -60,7 +60,7 @@ public class RobotContainer {
         "launch", new LaunchWithVeloAuton(m_launch, m_index, Constants.Launch.speedFarSpeaker));
     NamedCommands.registerCommand("intake", new ToggleIntake(m_intake));
     NamedCommands.registerCommand("index", new PrimeIndex(m_index));
-    NamedCommands.registerCommand("align-launch", new AlignLaunchAuto(m_swerve, m_launch, 3000, 1));
+    NamedCommands.registerCommand("align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 3000, 1));
     NamedCommands.registerCommand("reverse intake", m_intake.reverseIntakeCommand());
 
     CameraServer.startAutomaticCapture();
