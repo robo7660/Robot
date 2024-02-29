@@ -32,6 +32,7 @@ public class AlignLaunchAuto extends Command {
   @Override
   public void initialize() {
     timer.reset();
+    timer.stop();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

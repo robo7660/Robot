@@ -113,7 +113,7 @@ public class RobotContainer {
     a.whileTrue(m_swerve.alignCommand());
 
     JoystickButton b = new JoystickButton(driver, XboxController.Button.kB.value);
-    b.whileTrue(new LaunchWithVelo(m_launch, m_index, 0, true));
+    b.whileTrue(new LaunchWithVelo(m_launch, m_index, 6000, false));
 
     JoystickButton y = new JoystickButton(driver, XboxController.Button.kY.value);
     y.onTrue(m_launch.switchAngleCommand());
@@ -123,6 +123,12 @@ public class RobotContainer {
 
     JoystickButton x = new JoystickButton(driver, XboxController.Button.kX.value);
     x.onTrue(m_swerve.updatePositionCommand());
+
+    JoystickButton coX = new JoystickButton(coDriver, XboxController.Button.kX.value);
+    coX.onTrue(m_swerve.zeroGyroCommand());
+
+    JoystickButton coY = new JoystickButton(coDriver, XboxController.Button.kY.value);
+    coY.whileTrue(m_intake.reverseIntakeCommand());
   }
 
   /**

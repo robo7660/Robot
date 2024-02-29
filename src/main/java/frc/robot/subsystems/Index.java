@@ -39,6 +39,12 @@ public class Index extends SubsystemBase {
     currentSpeed = power;
   }
 
+  public void run() {
+    runLower();
+    runWhooper();
+    runUpper();
+  }
+
   public void feed(){
     motorUpper.set(0.9);
   }
@@ -56,15 +62,15 @@ public class Index extends SubsystemBase {
   }
 
   public void runUpper() {
-    setUpper(Constants.Index.speed);
+    setUpper(Constants.Index.upperSpeed);
   }
 
   public void runWhooper() {
-    setWhooper(Constants.Index.speed);
+    setWhooper(Constants.Index.whooperSpeed);
   }
 
   public void runLower() {
-    setLower(Constants.Index.speed);
+    setLower(Constants.Index.lowerSpeed);
   }
 
   public boolean isRunning() {
@@ -72,7 +78,7 @@ public class Index extends SubsystemBase {
   }
 
   public void start() {
-    set(speed);
+    run();
   }
 
   public void stop() {

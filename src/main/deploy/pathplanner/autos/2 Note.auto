@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3771774811958186,
+      "x": 1.4,
       "y": 2.0
     },
     "rotation": 180.0
@@ -12,28 +12,15 @@
     "data": {
       "commands": [
         {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "align"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "launch"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "2 piece 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "align-launch"
           }
         },
         {
@@ -43,22 +30,15 @@
           }
         },
         {
-          "type": "race",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "align"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "launch"
-                }
-              }
-            ]
+            "pathName": "2 piece 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "align-launch"
           }
         }
       ]

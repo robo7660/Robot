@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.util.PIDConstants;
+
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
@@ -28,6 +30,9 @@ public final class Constants {
   public static final Matter CHASSIS =
       new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
 
+  public static final PIDConstants autoTranslationPID = new PIDConstants(0.7,0,0);
+  public static final PIDConstants autoRotationPID = new PIDConstants(0.4, 0, 0.01);
+
   public static class Index {
     public static final int lowerCANID = 40;
     public static final int whooperCANID = 41;
@@ -37,7 +42,9 @@ public final class Constants {
     public static final boolean whooperInverted = false;
     public static final int upperBeam = 1;
     public static final int lowerBeam = 0;
-    public static final double speed = 0.9;
+    public static final double lowerSpeed = 0.15;
+    public static final double whooperSpeed = 0.9;
+    public static final double upperSpeed = 0.3;
   }
 
   public static class Intake {
@@ -47,7 +54,7 @@ public final class Constants {
     public static final boolean leftInverted = false;
     public static final boolean centerInverted = true;
     public static final boolean rightInverted = true;
-    public static final double speed = 0.6;
+    public static final double speed = 0.95;
   }
 
   public static class Launch {

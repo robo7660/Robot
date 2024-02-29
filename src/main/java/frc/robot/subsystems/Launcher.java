@@ -190,7 +190,8 @@ public class Launcher extends SubsystemBase {
       updatePIDFromDashboard("Launcher", this::updateLauncherPIDs);
       updatePIDFromDashboard("Angle", this::updateAnglePIDs);
     }
-    if (goalPosition == LaunchPosition.FAR) {
+    angle.set(0);
+    /*if (goalPosition == LaunchPosition.FAR) {
       angleController.setReference(Constants.Launch.farLaunchPosition, ControlType.kSmartMotion);
       curPosition = goalPosition;
       SmartDashboard.putNumber("Angle Desired", Constants.Launch.farLaunchPosition);
@@ -198,7 +199,7 @@ public class Launcher extends SubsystemBase {
       angleController.setReference(Constants.Launch.closeLaunchPosition, ControlType.kSmartMotion);
       curPosition = goalPosition;
       SmartDashboard.putNumber("Angle Desired", Constants.Launch.closeLaunchPosition);
-    }
+    }*/
     SmartDashboard.putNumber("Angle Speed", angle.get());
     SmartDashboard.putNumber("Launch Curr Velo", getCurrentVelocity());
     SmartDashboard.putNumber("Angle Position", angleEncoder.getPosition());
