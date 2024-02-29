@@ -22,6 +22,12 @@
           "data": {
             "pathName": "Centerline 1-2"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "drop launcher"
+          }
         }
       ]
     }

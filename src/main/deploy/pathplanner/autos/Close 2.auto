@@ -12,6 +12,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "drop launcher"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Close 2-1"

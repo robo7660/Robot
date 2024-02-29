@@ -22,6 +22,7 @@ import frc.robot.commands.AlignLaunchAuto;
 import frc.robot.commands.LaunchWithVelo;
 import frc.robot.commands.LaunchWithVeloAuton;
 import frc.robot.commands.PrimeIndex;
+import frc.robot.commands.ReleaseLauncher;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Index;
@@ -58,9 +59,9 @@ public class RobotContainer {
         "launch", new LaunchWithVeloAuton(m_launch, m_index, Constants.Launch.speedFarSpeaker));
     NamedCommands.registerCommand("intake", new ToggleIntake(m_intake));
     NamedCommands.registerCommand("index", new PrimeIndex(m_index));
-    NamedCommands.registerCommand(
-        "align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 3000, 1));
+    NamedCommands.registerCommand("align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 3000, 1));
     NamedCommands.registerCommand("reverse intake", m_intake.reverseIntakeCommand());
+    NamedCommands.registerCommand("drop launcher", new ReleaseLauncher(m_climb));
 
     CameraServer.startAutomaticCapture();
 
