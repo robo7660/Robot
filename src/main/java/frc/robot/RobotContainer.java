@@ -5,7 +5,6 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.NamedCommands;
-
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -24,7 +23,6 @@ import frc.robot.commands.LaunchWithVelo;
 import frc.robot.commands.LaunchWithVeloAuton;
 import frc.robot.commands.PrimeIndex;
 import frc.robot.commands.ToggleIntake;
-import frc.robot.commands.ToggleLaunchPIDS;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Index;
 import frc.robot.subsystems.Intake;
@@ -60,7 +58,8 @@ public class RobotContainer {
         "launch", new LaunchWithVeloAuton(m_launch, m_index, Constants.Launch.speedFarSpeaker));
     NamedCommands.registerCommand("intake", new ToggleIntake(m_intake));
     NamedCommands.registerCommand("index", new PrimeIndex(m_index));
-    NamedCommands.registerCommand("align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 3000, 1));
+    NamedCommands.registerCommand(
+        "align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 3000, 1));
     NamedCommands.registerCommand("reverse intake", m_intake.reverseIntakeCommand());
 
     CameraServer.startAutomaticCapture();
@@ -82,18 +81,17 @@ public class RobotContainer {
     m_swerve.setDefaultCommand(
         !RobotBase.isSimulation() ? closedAbsoluteDrive : closedAbsoluteDrive);
 
-    //-m_index.setDefaultCommand(m_index.manualIntake(coDriver::getRightY));
+    // -m_index.setDefaultCommand(m_index.manualIntake(coDriver::getRightY));
 
     m_climb.setDefaultCommand(m_climb.setWinchCommand(coDriver::getLeftY));
 
     // add auto options
     m_chooser.setDefaultOption("Test Drive", m_swerve.getAutonomousCommand("Test Drive"));
 
-    m_chooser.addOption(
-        "Mid 2 Piece", m_swerve.getAutonomousCommand("Mid 2 Piece"));
+    m_chooser.addOption("Mid 2 Piece", m_swerve.getAutonomousCommand("Mid 2 Piece"));
     m_chooser.addOption("Turn Auto", m_swerve.getAutonomousCommand("Turn Auto"));
     m_chooser.addOption("Drive and Turn", m_swerve.getAutonomousCommand("drive and turn"));
-    m_chooser.addOption("1 Centerline", m_swerve.getAutonomousCommand("1 Centerline"));   
+    m_chooser.addOption("1 Centerline", m_swerve.getAutonomousCommand("1 Centerline"));
     m_chooser.addOption("2 Centerline", m_swerve.getAutonomousCommand("2 Centerline"));
     m_chooser.addOption("3 Centerline", m_swerve.getAutonomousCommand("3 Centerline"));
     m_chooser.addOption("4 Centerline", m_swerve.getAutonomousCommand("4 Centerline"));
@@ -117,8 +115,7 @@ public class RobotContainer {
     JoystickButton leftBumper = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     leftBumper.onTrue(new ToggleIntake(m_intake));
 
-    JoystickButton coRB =
-        new JoystickButton(coDriver, XboxController.Button.kRightBumper.value);
+    JoystickButton coRB = new JoystickButton(coDriver, XboxController.Button.kRightBumper.value);
     coRB.onTrue(new PrimeIndex(m_index));
 
     Trigger lt = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.05);

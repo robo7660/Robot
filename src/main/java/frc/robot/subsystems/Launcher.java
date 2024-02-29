@@ -48,7 +48,6 @@ public class Launcher extends SubsystemBase {
     lowerLauncher.setInverted(Constants.Launch.lowerMotorInverted);
     angle.setIdleMode(IdleMode.kCoast);
 
-
     angleController = angle.getPIDController();
     upperLauncherController = upperLauncher.getPIDController();
     lowerLauncherController = lowerLauncher.getPIDController();

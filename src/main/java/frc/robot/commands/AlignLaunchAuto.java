@@ -18,9 +18,9 @@ public class AlignLaunchAuto extends Command {
   private final Timer timer;
   private final Index index;
 
-
   /** Creates a new AlignLaunchAuto. */
-  public AlignLaunchAuto(SwerveSubsystem swerve, Launcher launcher, Index index, double velo, double launchTime) {
+  public AlignLaunchAuto(
+      SwerveSubsystem swerve, Launcher launcher, Index index, double velo, double launchTime) {
     this.swerve = swerve;
     this.launcher = launcher;
     this.index = index;
@@ -41,7 +41,7 @@ public class AlignLaunchAuto extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (swerve.align()){
+    if (swerve.align()) {
       launcher.setLaunchVelocity(velo);
       if (launcher.readyToLaunch(velo)) {
         index.feed();
