@@ -645,4 +645,8 @@ public class SwerveSubsystem extends SubsystemBase
   public Command zeroGyroCommand(){
     return this.runOnce(() -> swerveDrive.setGyro(new Rotation3d(0, 0, 0)));
   }
+
+  public Command setRotationCommand(double rotation){
+    return this.run(() -> setRotation(Units.degreesToRadians(rotation)));
+  }
 }
