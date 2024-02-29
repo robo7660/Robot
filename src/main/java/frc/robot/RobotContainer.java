@@ -155,4 +155,8 @@ public class RobotContainer {
   public void updatePose() {
     m_swerve.updatePositionCommand();
   }
+
+  public void dropLauncher(){
+    m_launch.releaseLauncher();
+  }
 }

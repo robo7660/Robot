@@ -33,7 +33,7 @@ public class Launcher extends SubsystemBase {
   private RelativeEncoder upperLauncherEncoder;
   private RelativeEncoder lowerLauncherEncoder;
 
-  private CANSparkMax angle = new CANSparkMax(Constants.Launch.angleID, MotorType.kBrushless);
+  private CANSparkFlex angle = new CANSparkFlex(Constants.Launch.angleID, MotorType.kBrushless);
   private SparkPIDController angleController;
   private SparkAbsoluteEncoder angleEncoder;
 
@@ -46,7 +46,7 @@ public class Launcher extends SubsystemBase {
     angle.setInverted(Constants.Launch.angleMotorInverted);
     upperLauncher.setInverted(Constants.Launch.upperMotorInverted);
     lowerLauncher.setInverted(Constants.Launch.lowerMotorInverted);
-    angle.setIdleMode(IdleMode.kCoast);
+    angle.setIdleMode(IdleMode.kBrake);
 
     angleController = angle.getPIDController();
     upperLauncherController = upperLauncher.getPIDController();
@@ -205,6 +205,10 @@ public class Launcher extends SubsystemBase {
     SmartDashboard.putNumber("Angle Speed", angle.get());
     SmartDashboard.putNumber("Launch Curr Velo", getCurrentVelocity());
     SmartDashboard.putNumber("Angle Position", angleEncoder.getPosition());
+  }
+
+  public void releaseLauncher(){
+    angle.setIdleMode(IdleMode.kCoast);
   }
 
   public Command switchAngleCommand() {

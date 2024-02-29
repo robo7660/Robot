@@ -94,6 +94,7 @@ public class Robot extends TimedRobot {
     }
     getAlliance();
     m_robotContainer.updatePose();
+    m_robotContainer.dropLauncher();
   }
 
   /** This function is called periodically during operator control. */
