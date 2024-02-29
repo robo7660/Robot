@@ -12,21 +12,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "reverse intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "CenterLine 1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "drop launcher"
           }
         }
       ]
