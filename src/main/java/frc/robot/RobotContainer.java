@@ -99,6 +99,7 @@ public class RobotContainer {
     m_chooser.addOption("3 Centerline", m_swerve.getAutonomousCommand("3 Centerline"));
     m_chooser.addOption("4 Centerline", m_swerve.getAutonomousCommand("4 Centerline"));
     m_chooser.addOption("5 Centerline", m_swerve.getAutonomousCommand("5 Centerline"));
+    m_chooser.addOption("Close 2", m_swerve.getAutonomousCommand("Close 2"));
 
     SmartDashboard.putData(m_chooser);
   }
