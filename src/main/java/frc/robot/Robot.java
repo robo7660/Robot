@@ -77,6 +77,7 @@ public class Robot extends TimedRobot {
     }
 
     getAlliance();
+    m_robotContainer.dropLauncher();
   }
 
   /** This function is called periodically during autonomous. */
