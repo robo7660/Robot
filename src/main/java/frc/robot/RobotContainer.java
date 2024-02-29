@@ -91,7 +91,6 @@ public class RobotContainer {
 
     m_chooser.addOption(
         "Mid 2 Piece", m_swerve.getAutonomousCommand("Mid 2 Piece"));
-    m_chooser.addOption("4 Note", m_swerve.getAutonomousCommand("4 Note"));
     m_chooser.addOption("Turn Auto", m_swerve.getAutonomousCommand("Turn Auto"));
     m_chooser.addOption("Drive and Turn", m_swerve.getAutonomousCommand("drive and turn"));
     m_chooser.addOption("1 Centerline", m_swerve.getAutonomousCommand("1 Centerline"));   
@@ -114,33 +113,25 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+
     JoystickButton leftBumper = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     leftBumper.onTrue(new ToggleIntake(m_intake));
 
-    JoystickButton rightBumper =
-        new JoystickButton(driver, XboxController.Button.kRightBumper.value);
-    rightBumper.onTrue(new PrimeIndex(m_index));
+    JoystickButton coRB =
+        new JoystickButton(coDriver, XboxController.Button.kRightBumper.value);
+    coRB.onTrue(new PrimeIndex(m_index));
 
-    JoystickButton a = new JoystickButton(driver, XboxController.Button.kA.value);
-    a.whileTrue(m_swerve.alignCommand());
+    Trigger lt = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.05);
+    lt.whileTrue(m_swerve.alignCommand());
 
-    JoystickButton b = new JoystickButton(driver, XboxController.Button.kB.value);
-    b.whileTrue(new LaunchWithVelo(m_launch, m_index, 6000, false));
-
-    JoystickButton y = new JoystickButton(driver, XboxController.Button.kY.value);
-    y.onTrue(m_launch.switchAngleCommand());
-
-    JoystickButton coA = new JoystickButton(coDriver, XboxController.Button.kA.value);
-    coA.onTrue(new ToggleLaunchPIDS(m_launch));
+    Trigger rt = new Trigger(() -> driver.getRightTriggerAxis() >= 0.05);
+    rt.whileTrue(new LaunchWithVelo(m_launch, m_index, 5200, false));
 
     JoystickButton x = new JoystickButton(driver, XboxController.Button.kX.value);
     x.onTrue(m_swerve.updatePositionCommand());
 
-    JoystickButton coX = new JoystickButton(coDriver, XboxController.Button.kX.value);
-    coX.onTrue(m_swerve.zeroGyroCommand());
-
-    JoystickButton coY = new JoystickButton(coDriver, XboxController.Button.kY.value);
-    coY.whileTrue(m_intake.reverseIntakeCommand());
+    JoystickButton y = new JoystickButton(driver, XboxController.Button.kY.value);
+    y.whileTrue(m_intake.reverseIntakeCommand());
   }
 
   /**
