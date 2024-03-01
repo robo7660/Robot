@@ -77,6 +77,7 @@ public class Robot extends TimedRobot {
     }
 
     getAlliance();
+    m_robotContainer.dropLauncher();
   }
 
   /** This function is called periodically during autonomous. */
@@ -93,6 +94,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     getAlliance();
+    m_robotContainer.updatePose();
+    m_robotContainer.dropLauncher();
   }
 
   /** This function is called periodically during operator control. */

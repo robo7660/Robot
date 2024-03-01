@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.54,
+      "y": 2.14
+    },
+    "rotation": 180.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Mid 2 Piece 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "align-launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Mid 2 Piece 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Mid 2 Piece 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "align-launch"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.util.PIDConstants;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
@@ -18,8 +19,6 @@ import swervelib.math.Matter;
  */
 public final class Constants {
 
-  public static final int pneumaticsControlModuleCANID = 2;
-
   public static final boolean kLeftFrontDriveInverted = false;
   public static final boolean kLeftBackDriveInverted = false;
   public static final boolean kRightBackDriveInverted = false;
@@ -30,6 +29,9 @@ public final class Constants {
   public static final Matter CHASSIS =
       new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
 
+  public static final PIDConstants autoTranslationPID = new PIDConstants(0.7, 0, 0);
+  public static final PIDConstants autoRotationPID = new PIDConstants(0.4, 0, 0.01);
+
   public static class Index {
     public static final int lowerCANID = 40;
     public static final int whooperCANID = 41;
@@ -37,40 +39,48 @@ public final class Constants {
     public static final boolean lowerInverted = true;
     public static final boolean upperInverted = true;
     public static final boolean whooperInverted = false;
-    public static final int breakBeam = 1;
+    public static final int upperBeam = 1;
+    public static final int lowerBeam = 0;
+    public static final double lowerSpeed = 0.15;
+    public static final double whooperSpeed = 0.9;
+    public static final double upperSpeed = 0.3;
   }
 
   public static class Intake {
     public static final int leftCANID = 30;
     public static final int centerCANID = 31;
     public static final int rightCANID = 32;
-    public static final int breakBeam = 0;
     public static final boolean leftInverted = false;
     public static final boolean centerInverted = true;
     public static final boolean rightInverted = true;
-    public static final double speed = 0.6;
+    public static final double speed = 0.95;
   }
 
   public static class Launch {
-    public static final double launcherP = 0;
+    public static final double launcherP = 0.0005;
     public static final double launcherI = 0;
     public static final double launcherD = 0;
     public static final double launcherFF = 0.000156;
-    public static final double angleP = 0.004;
+    public static final double angleP = 0.00025;
     public static final double angleI = 0;
     public static final double angleD = 0;
     public static final double angleFF = 0;
-    public static final int launcherID = 45;
+    public static final int lowerLauncherID = 44;
+    public static final int upperLauncherID = 45;
     public static final int angleID = 46;
-    public static final double allowedVeloPercent = 0.05;
-    public static final double allowedDifferencePercent = 0.05;
-    public static final double closeLaunchPosition = 0.207;
-    public static final double farLaunchPosition = 0.162;
-    public static final double angleMin = 0.161;
-    public static final double angleMax = 0.234;
-    public static final double speedCloseSpeaker = 0.9;
-    public static final double angleConversionFactor = 1;
-    public static final double launcherConversionFactor = 1; // FIXME
+    public static final double allowedVeloPercent = 10;
+    public static final double allowedDifferencePercent = 5;
+    public static final double closeLaunchPosition = 585;
+    public static final double farLaunchPosition = 655;
+    public static final double angleMin = 581;
+    public static final double angleMax = 660;
+    public static final boolean angleMotorInverted = true;
+    public static final boolean angleEncoderInverted = true;
+    public static final boolean lowerMotorInverted = true;
+    public static final boolean upperMotorInverted = false;
+    public static final double speedFarSpeaker = 2800;
+    public static final double angleConversionFactor = 1000;
+    public static final double launcherConversionFactor = 1;
 
     public enum LaunchPosition {
       CLOSE,
@@ -81,10 +91,11 @@ public final class Constants {
   public static class Climb {
     public static final int leftCANID = 50;
     public static final int rightCANID = 51;
+    public static final float winchTopLimit = 280;
     // These are break beam sensor IDS
     public static final int winchLimitLeft = 2;
     public static final int winchLimitRight = 3;
-    public static final double motorSpeedFactor = 0.5;
+    public static final double motorSpeedFactor = -0.5;
   }
 
   public static final String limelightName = "limelight";

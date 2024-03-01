@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.NamedCommands;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AbsoluteDrive;
+import frc.robot.commands.AlignLaunchAuto;
 import frc.robot.commands.LaunchWithVelo;
 import frc.robot.commands.LaunchWithVeloAuton;
 import frc.robot.commands.PrimeIndex;
@@ -53,9 +55,14 @@ public class RobotContainer {
 
     // Create commands for PathPlanner
     NamedCommands.registerCommand(
-        "launch", new LaunchWithVeloAuton(m_launch, m_index, Constants.Launch.speedCloseSpeaker));
+        "launch", new LaunchWithVeloAuton(m_launch, m_index, Constants.Launch.speedFarSpeaker));
     NamedCommands.registerCommand("intake", new ToggleIntake(m_intake));
     NamedCommands.registerCommand("index", new PrimeIndex(m_index));
+    NamedCommands.registerCommand(
+        "align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 3000, 1));
+    NamedCommands.registerCommand("reverse intake", m_intake.reverseIntakeCommand());
+
+    CameraServer.startAutomaticCapture();
 
     // Configure the trigger bindings
     configureBindings();
@@ -66,29 +73,31 @@ public class RobotContainer {
             // Applies deadbands and inverts controls because joysticks
             // are back-right positive while robot
             // controls are front-left positive
-            () -> MathUtil.applyDeadband(driver.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
-            () -> MathUtil.applyDeadband(driver.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-            () -> driver.getRightX(),
+            () -> MathUtil.applyDeadband(-driver.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
+            () -> MathUtil.applyDeadband(-driver.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
+            () -> -driver.getRightX(),
             () -> -driver.getRightY());
 
     m_swerve.setDefaultCommand(
         !RobotBase.isSimulation() ? closedAbsoluteDrive : closedAbsoluteDrive);
 
+    // -m_index.setDefaultCommand(m_index.manualIntake(coDriver::getRightY));
+
     m_climb.setDefaultCommand(m_climb.setWinchCommand(coDriver::getLeftY));
 
     // add auto options
-    m_chooser.setDefaultOption("Test Drive", m_swerve.getAutonomousCommand("Test Drive", true));
+    m_chooser.setDefaultOption("Test Drive", m_swerve.getAutonomousCommand("Test Drive"));
 
-    m_chooser.addOption(
-        "2 Note Midfield Auton Blue",
-        m_swerve.getAutonomousCommand("2 Note Midfield Auton Blue", true));
-    m_chooser.addOption(
-        "2 Note Midfield Auton Red",
-        m_swerve.getAutonomousCommand("2 Note Midfield Auton Red", true));
-    m_chooser.addOption(
-        "4 Note Auton Blue", m_swerve.getAutonomousCommand("4 Note Auton Blue", true));
-    m_chooser.addOption(
-        "4 Note Auton Red", m_swerve.getAutonomousCommand("4 Note Auton Red", true));
+    m_chooser.addOption("Mid 2 Piece", m_swerve.getAutonomousCommand("Mid 2 Piece"));
+    m_chooser.addOption("Turn Auto", m_swerve.getAutonomousCommand("Turn Auto"));
+    m_chooser.addOption("Drive and Turn", m_swerve.getAutonomousCommand("drive and turn"));
+    m_chooser.addOption("1 Centerline", m_swerve.getAutonomousCommand("1 Centerline"));
+    m_chooser.addOption("2 Centerline", m_swerve.getAutonomousCommand("2 Centerline"));
+    m_chooser.addOption("3 Centerline", m_swerve.getAutonomousCommand("3 Centerline"));
+    m_chooser.addOption("4 Centerline", m_swerve.getAutonomousCommand("4 Centerline"));
+    m_chooser.addOption("5 Centerline", m_swerve.getAutonomousCommand("5 Centerline"));
+    m_chooser.addOption("Close 2", m_swerve.getAutonomousCommand("Close 2"));
+
     SmartDashboard.putData(m_chooser);
   }
 
@@ -102,18 +111,24 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+
     JoystickButton leftBumper = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     leftBumper.onTrue(new ToggleIntake(m_intake));
 
-    JoystickButton rightBumper =
-        new JoystickButton(driver, XboxController.Button.kRightBumper.value);
-    rightBumper.onTrue(new PrimeIndex(m_index));
+    JoystickButton coRB = new JoystickButton(coDriver, XboxController.Button.kRightBumper.value);
+    coRB.onTrue(new PrimeIndex(m_index));
 
-    JoystickButton a = new JoystickButton(driver, XboxController.Button.kA.value);
-    a.onTrue(m_swerve.limelightPositionResetCommand());
+    Trigger lt = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.05);
+    lt.whileTrue(m_swerve.alignCommand());
 
-    JoystickButton b = new JoystickButton(driver, XboxController.Button.kB.value);
-    b.whileTrue(new LaunchWithVelo(m_launch, m_index, 100));
+    Trigger rt = new Trigger(() -> driver.getRightTriggerAxis() >= 0.05);
+    rt.whileTrue(new LaunchWithVelo(m_launch, m_index, 5200, false));
+
+    JoystickButton x = new JoystickButton(driver, XboxController.Button.kX.value);
+    x.onTrue(m_swerve.updatePositionCommand());
+
+    JoystickButton y = new JoystickButton(driver, XboxController.Button.kY.value);
+    y.whileTrue(m_intake.reverseIntakeCommand());
   }
 
   /**
@@ -136,5 +151,13 @@ public class RobotContainer {
 
   public void setMotorBrake(boolean brake) {
     m_swerve.setMotorBrake(brake);
+  }
+
+  public void updatePose() {
+    m_swerve.updatePositionCommand();
+  }
+
+  public void dropLauncher() {
+    m_launch.releaseLauncher();
   }
 }

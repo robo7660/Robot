@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 14.04,
-        "y": 7.0
+        "x": 3.0,
+        "y": 2.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.043698957583363,
-        "y": 6.979658581285779
+        "x": 3.0500000000000003,
+        "y": 2.0
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 15.12,
-        "y": 5.56
+        "x": 3.0,
+        "y": 2.0
       },
       "prevControl": {
-        "x": 15.132806756341045,
-        "y": 5.539225686154654
+        "x": 3.0,
+        "y": 2.0
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,18 +32,21 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxVelocity": 2.0,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 180.0,
+    "maxAngularAcceleration": 180.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
-    "rotateFast": false
+    "rotation": 90.0,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "Red Side 2024",
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 90.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }

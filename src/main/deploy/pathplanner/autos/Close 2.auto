@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.9464048057910655,
-      "y": 2.599805713163495
+      "x": 0.528948516329338,
+      "y": 7.30256890442522
     },
-    "rotation": 0
+    "rotation": -179.94461106789504
   },
   "command": {
     "type": "sequential",
@@ -14,25 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Auton 2 pt1"
+            "pathName": "Close 2-1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launch"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Auton 2 pt2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Auton 2 pt3"
+            "name": "align-launch"
           }
         },
         {
@@ -42,33 +30,44 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Auton 2 pt4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "index"
-                }
-              }
-            ]
+            "name": "index"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Close 2-2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Close 2-3"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "launch"
+            "name": "intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "align-launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Close 2-Escape"
           }
         }
       ]
     }
   },
-  "folder": "2024 - Crescendo",
+  "folder": null,
   "choreoAuto": false
 }
