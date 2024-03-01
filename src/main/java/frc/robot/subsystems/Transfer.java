@@ -4,25 +4,25 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Transfer extends SubsystemBase {
   /** Creates a new Transfer. */
-  CANSparkMax motor = new CANSparkMax(Constants.Index.lowerCANID, MotorType.kBrushless);
+  CANSparkMax motor = new CANSparkMax(Constants.Transfer.motorID, MotorType.kBrushless);
+
   private double currentSpeed;
 
   public Transfer() {
-    motor.setInverted(Constants.Index.lowerInverted);
+    motor.setInverted(Constants.Transfer.motorInverted);
     currentSpeed = 0;
   }
 
   public void start() {
-    motor.set(Constants.Index.lowerSpeed);
-    currentSpeed = Constants.Index.lowerSpeed;
+    motor.set(Constants.Transfer.motorSpeed);
+    currentSpeed = Constants.Transfer.motorSpeed;
   }
 
   public void stop() {

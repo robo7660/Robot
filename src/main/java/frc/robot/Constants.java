@@ -33,15 +33,12 @@ public final class Constants {
   public static final PIDConstants autoRotationPID = new PIDConstants(0.4, 0, 0.01);
 
   public static class Index {
-    public static final int lowerCANID = 40;
     public static final int whooperCANID = 41;
     public static final int upperCANID = 42;
-    public static final boolean lowerInverted = true;
     public static final boolean upperInverted = true;
     public static final boolean whooperInverted = false;
     public static final int upperBeam = 1;
     public static final int lowerBeam = 0;
-    public static final double lowerSpeed = 0.15;
     public static final double whooperSpeed = 0.9;
     public static final double upperSpeed = 0.3;
   }
@@ -96,6 +93,12 @@ public final class Constants {
     public static final int winchLimitLeft = 2;
     public static final int winchLimitRight = 3;
     public static final double motorSpeedFactor = -0.5;
+  }
+
+  public static class Transfer {
+    public static final boolean motorInverted = true;
+    public static final double motorSpeed = 0.15;
+    public static final int motorID = 40;
   }
 
   public static final String limelightName = "limelight";
