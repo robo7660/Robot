@@ -6,13 +6,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Transfer;
 
 public class ToggleIntake extends Command {
   private Intake intake;
+  private Transfer transfer;
 
   /** Creates a new ToggleIntake. */
-  public ToggleIntake(Intake intake) {
+  public ToggleIntake(Intake intake, Transfer transfer) {
     this.intake = intake;
+    this.transfer = transfer;
     addRequirements(intake);
   }
 
@@ -21,6 +24,7 @@ public class ToggleIntake extends Command {
   public void initialize() {
     System.out.println("Intake is initializing");
     intake.toggle();
+    transfer.toggle();
   }
 
   // Returns true when the command should end.

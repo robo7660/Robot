@@ -28,6 +28,8 @@ import frc.robot.subsystems.Index;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.Transfer;
+
 import java.io.File;
 
 /**
@@ -45,6 +47,7 @@ public class RobotContainer {
   private final Index m_index = new Index();
   private final Launcher m_launch = new Launcher();
   private final Climb m_climb = new Climb();
+  private final Transfer m_transfer = new Transfer();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final XboxController driver = new XboxController(0);
@@ -56,8 +59,8 @@ public class RobotContainer {
     // Create commands for PathPlanner
     NamedCommands.registerCommand(
         "launch", new LaunchWithVeloAuton(m_launch, m_index, Constants.Launch.speedFarSpeaker));
-    NamedCommands.registerCommand("intake", new ToggleIntake(m_intake));
-    NamedCommands.registerCommand("index", new PrimeIndex(m_index));
+    NamedCommands.registerCommand("intake", new ToggleIntake(m_intake, m_transfer));
+    NamedCommands.registerCommand("index", new PrimeIndex(m_index, m_transfer));
     NamedCommands.registerCommand(
         "align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 3000, 1));
     NamedCommands.registerCommand("reverse intake", m_intake.reverseIntakeCommand());
@@ -113,16 +116,16 @@ public class RobotContainer {
   private void configureBindings() {
 
     JoystickButton leftBumper = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    leftBumper.onTrue(new ToggleIntake(m_intake));
+    leftBumper.onTrue(new ToggleIntake(m_intake, m_transfer));
 
     JoystickButton coRB = new JoystickButton(coDriver, XboxController.Button.kRightBumper.value);
-    coRB.onTrue(new PrimeIndex(m_index));
+    coRB.onTrue(new PrimeIndex(m_index, m_transfer));
 
     Trigger lt = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.05);
     lt.whileTrue(m_swerve.alignCommand());
 
     Trigger rt = new Trigger(() -> driver.getRightTriggerAxis() >= 0.05);
-    rt.whileTrue(new LaunchWithVelo(m_launch, m_index, 5200, false));
+    rt.whileTrue(new LaunchWithVelo(m_launch, m_index, 2500, false));
 
     JoystickButton x = new JoystickButton(driver, XboxController.Button.kX.value);
     x.onTrue(m_swerve.updatePositionCommand());
