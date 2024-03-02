@@ -52,7 +52,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = Units.feetToMeters(14.5);
+  public        double      maximumSpeed = Units.feetToMeters(30);
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -207,7 +207,7 @@ public class SwerveSubsystem extends SubsystemBase
   public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier headingX,
                               DoubleSupplier headingY)
   {
-    // swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
+    swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
     return run(() -> {
       double xInput = Math.pow(translationX.getAsDouble(), 3); // Smooth controll out
       double yInput = Math.pow(translationY.getAsDouble(), 3); // Smooth controll out
@@ -230,7 +230,7 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public Command simDriveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier rotation)
   {
-    // swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
+    swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
     return run(() -> {
       // Make the robot move
       driveFieldOriented(swerveDrive.swerveController.getTargetSpeeds(translationX.getAsDouble(),
@@ -648,5 +648,13 @@ public class SwerveSubsystem extends SubsystemBase
 
   public Command setRotationCommand(double rotation){
     return this.run(() -> setRotation(Units.degreesToRadians(rotation)));
+  }
+
+  public void nullFunction() {
+    return;
+  }
+
+  public Command noAuto() {
+    return this.runOnce(() -> nullFunction());
   }
 }
