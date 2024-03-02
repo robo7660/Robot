@@ -42,6 +42,10 @@ public class Index extends SubsystemBase {
     motorUpper.set(0.9);
   }
 
+  public void reverseFeed() {
+    motorUpper.set(-0.9);
+  }
+
   public void setUpper(double speed) {
     motorUpper.set(speed);
   }
