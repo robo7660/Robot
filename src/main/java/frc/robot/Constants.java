@@ -92,7 +92,7 @@ public final class Constants {
     // These are break beam sensor IDS
     public static final int winchLimitLeft = 2;
     public static final int winchLimitRight = 3;
-    public static final double motorSpeedFactor = -0.5;
+    public static final double motorSpeedFactor = -0.9;
   }
 
   public static class Transfer {

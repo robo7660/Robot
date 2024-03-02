@@ -61,7 +61,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("intake", new ToggleIntake(m_intake, m_transfer));
     NamedCommands.registerCommand("index", new PrimeIndex(m_index, m_transfer));
     NamedCommands.registerCommand(
-        "align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 3000, 1));
+        "align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 5300, 1));
     NamedCommands.registerCommand("reverse intake", m_intake.reverseIntakeCommand());
 
     CameraServer.startAutomaticCapture();
@@ -94,11 +94,13 @@ public class RobotContainer {
     m_chooser.addOption("Turn Auto", m_swerve.getAutonomousCommand("Turn Auto"));
     m_chooser.addOption("Drive and Turn", m_swerve.getAutonomousCommand("drive and turn"));
     m_chooser.addOption("1 Centerline", m_swerve.getAutonomousCommand("1 Centerline"));
-    m_chooser.addOption("2 Centerline", m_swerve.getAutonomousCommand("2 Centerline"));
-    m_chooser.addOption("3 Centerline", m_swerve.getAutonomousCommand("3 Centerline"));
-    m_chooser.addOption("4 Centerline", m_swerve.getAutonomousCommand("4 Centerline"));
     m_chooser.addOption("5 Centerline", m_swerve.getAutonomousCommand("5 Centerline"));
     m_chooser.addOption("Close 2", m_swerve.getAutonomousCommand("Close 2"));
+    m_chooser.addOption("Just Chill", m_swerve.noAuto());
+    m_chooser.addOption("Simple Shoot Center", m_swerve.getAutonomousCommand("Simple Shoot Center"));
+    m_chooser.addOption("Simple Shoot Safe", m_swerve.getAutonomousCommand("Simple Shoot Safe"));
+    m_chooser.addOption("Simple Shoot Amp", m_swerve.getAutonomousCommand("Simple Shoot Amp"));
+
 
     SmartDashboard.putData(m_chooser);
   }
@@ -117,6 +119,9 @@ public class RobotContainer {
     JoystickButton leftBumper = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     leftBumper.onTrue(new ToggleIntake(m_intake, m_transfer));
 
+    JoystickButton rb = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    rb.whileTrue(new LaunchWithVelo(m_launch, m_index, -1500, false));
+
     JoystickButton coRB = new JoystickButton(coDriver, XboxController.Button.kRightBumper.value);
     coRB.onTrue(new PrimeIndex(m_index, m_transfer));
 
@@ -124,13 +129,19 @@ public class RobotContainer {
     lt.whileTrue(m_swerve.alignCommand());
 
     Trigger rt = new Trigger(() -> driver.getRightTriggerAxis() >= 0.05);
-    rt.whileTrue(new LaunchWithVelo(m_launch, m_index, 2500, false));
+    rt.whileTrue(new LaunchWithVelo(m_launch, m_index, 5200, false));
 
     JoystickButton x = new JoystickButton(driver, XboxController.Button.kX.value);
     x.onTrue(m_swerve.updatePositionCommand());
 
+    JoystickButton a = new JoystickButton(driver, XboxController.Button.kA.value);
+    a.whileTrue(new LaunchWithVelo(m_launch, m_index, 2050, false));
+
     JoystickButton y = new JoystickButton(driver, XboxController.Button.kY.value);
     y.whileTrue(m_intake.reverseIntakeCommand());
+
+    JoystickButton b = new JoystickButton(driver, XboxController.Button.kB.value);
+    b.whileTrue(m_swerve.setRotationCommand(180));
   }
 
   /**
@@ -161,5 +172,9 @@ public class RobotContainer {
 
   public void dropLauncher() {
     m_launch.releaseLauncher();
+  }
+
+  public void lockLauncher(){
+    m_launch.lockLauncher();
   }
 }
