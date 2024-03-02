@@ -24,7 +24,11 @@ public class ToggleIntake extends Command {
   public void initialize() {
     System.out.println("Intake is initializing");
     intake.toggle();
-    transfer.toggle();
+    if (intake.isRunning()){
+      transfer.start();
+    } else {
+      transfer.stop();
+    }
   }
 
   // Returns true when the command should end.
