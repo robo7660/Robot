@@ -98,11 +98,13 @@ public class RobotContainer {
     m_chooser.addOption("5 Centerline", m_swerve.getAutonomousCommand("5 Centerline"));
     m_chooser.addOption("Close 2", m_swerve.getAutonomousCommand("Close 2"));
     m_chooser.addOption("Just Chill", m_swerve.noAuto());
-    m_chooser.addOption("Simple Shoot Center", m_swerve.getAutonomousCommand("Simple Shoot Center"));
-    m_chooser.addOption("Simple Shoot Safe Blue", m_swerve.getAutonomousCommand("Simple Shoot Safe Blue"));
+    m_chooser.addOption(
+        "Simple Shoot Center", m_swerve.getAutonomousCommand("Simple Shoot Center"));
+    m_chooser.addOption(
+        "Simple Shoot Safe Blue", m_swerve.getAutonomousCommand("Simple Shoot Safe Blue"));
     m_chooser.addOption("Simple Shoot Amp", m_swerve.getAutonomousCommand("Simple Shoot Amp"));
-    m_chooser.addOption("Simple Shoot Safe Red", m_swerve.getAutonomousCommand("Simple Shoot Safe Red"));
-
+    m_chooser.addOption(
+        "Simple Shoot Safe Red", m_swerve.getAutonomousCommand("Simple Shoot Safe Red"));
 
     SmartDashboard.putData(m_chooser);
   }
@@ -176,7 +178,7 @@ public class RobotContainer {
     m_launch.releaseLauncher();
   }
 
-  public void lockLauncher(){
+  public void lockLauncher() {
     m_launch.lockLauncher();
   }
 }
