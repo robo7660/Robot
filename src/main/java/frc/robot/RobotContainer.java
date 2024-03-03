@@ -64,7 +64,8 @@ public class RobotContainer {
         "align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 5300, 1));
     NamedCommands.registerCommand("reverse intake", m_intake.reverseIntakeCommand());
 
-    CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture(0);
+    CameraServer.startAutomaticCapture(1);
 
     // Configure the trigger bindings
     configureBindings();
@@ -98,8 +99,9 @@ public class RobotContainer {
     m_chooser.addOption("Close 2", m_swerve.getAutonomousCommand("Close 2"));
     m_chooser.addOption("Just Chill", m_swerve.noAuto());
     m_chooser.addOption("Simple Shoot Center", m_swerve.getAutonomousCommand("Simple Shoot Center"));
-    m_chooser.addOption("Simple Shoot Safe", m_swerve.getAutonomousCommand("Simple Shoot Safe"));
+    m_chooser.addOption("Simple Shoot Safe Blue", m_swerve.getAutonomousCommand("Simple Shoot Safe Blue"));
     m_chooser.addOption("Simple Shoot Amp", m_swerve.getAutonomousCommand("Simple Shoot Amp"));
+    m_chooser.addOption("Simple Shoot Safe Red", m_swerve.getAutonomousCommand("Simple Shoot Safe Red"));
 
 
     SmartDashboard.putData(m_chooser);
@@ -132,7 +134,7 @@ public class RobotContainer {
     rt.whileTrue(new LaunchWithVelo(m_launch, m_index, 5200, false));
 
     JoystickButton x = new JoystickButton(driver, XboxController.Button.kX.value);
-    x.onTrue(m_swerve.updatePositionCommand());
+    x.whileTrue(m_swerve.updatePositionCommand());
 
     JoystickButton a = new JoystickButton(driver, XboxController.Button.kA.value);
     a.whileTrue(new LaunchWithVelo(m_launch, m_index, 2050, false));

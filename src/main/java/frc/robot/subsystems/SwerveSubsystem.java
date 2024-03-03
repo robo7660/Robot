@@ -543,10 +543,11 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive.drive(desired);
   }
 
-  public void resetToLimelight() {
+  public void 
+  resetToLimelight() {
     boolean hasTarget = LimelightHelpers.getTV(Constants.limelightName);
-    while (!hasTarget) {
-      hasTarget = LimelightHelpers.getTV(Constants.limelightName);
+    if (!hasTarget) {
+      return;
     }
     Pose2d pose;
     if (Robot.alliance == Alliance.Red && hasTarget) {
@@ -639,7 +640,7 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   public Command updatePositionCommand() {
-    return this.runOnce(() -> resetToLimelight());
+    return this.run(() -> resetToLimelight());
   }
 
   public Command zeroGyroCommand(){
