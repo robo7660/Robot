@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7336934388833163,
-      "y": 4.406890714018958
+      "x": 0.77430354290908,
+      "y": 4.303448834817898
     },
     "rotation": 120.48894049983096
   },
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Simple Shoot Safe 1"
+            "pathName": "Simple Shoot Safe 1 Blue"
           }
         },
         {
