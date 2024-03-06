@@ -15,9 +15,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AbsoluteDrive;
+import frc.robot.commands.AbsoluteDriveAdv;
 import frc.robot.commands.AlignLaunchAuto;
 import frc.robot.commands.LaunchWithVelo;
 import frc.robot.commands.LaunchWithVeloAuton;
@@ -70,6 +72,11 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
+    POVButton driverUp = new POVButton(driver, 0);
+    POVButton driverLeft = new POVButton(driver, 90);
+    POVButton driverDown = new POVButton(driver, 180);
+    POVButton driverRight = new POVButton(driver, 270);
+
     AbsoluteDrive closedAbsoluteDrive =
         new AbsoluteDrive(
             m_swerve,
@@ -81,8 +88,18 @@ public class RobotContainer {
             () -> -driver.getRightX(),
             () -> -driver.getRightY());
 
-    m_swerve.setDefaultCommand(
-        !RobotBase.isSimulation() ? closedAbsoluteDrive : closedAbsoluteDrive);
+    AbsoluteDriveAdv advancedDrive =
+        new AbsoluteDriveAdv(
+            m_swerve,
+            () -> MathUtil.applyDeadband(-driver.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
+            () -> MathUtil.applyDeadband(-driver.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
+            () -> MathUtil.applyDeadband(-driver.getRightX(), OperatorConstants.RIGHT_X_DEADBAND),
+            () -> driverUp.getAsBoolean(),
+            () -> driverDown.getAsBoolean(),
+            () -> driverLeft.getAsBoolean(),
+            () -> driverRight.getAsBoolean());
+
+    m_swerve.setDefaultCommand(!RobotBase.isSimulation() ? advancedDrive : advancedDrive);
 
     // -m_index.setDefaultCommand(m_index.manualIntake(coDriver::getRightY));
 
