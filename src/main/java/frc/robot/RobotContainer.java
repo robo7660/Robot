@@ -72,10 +72,12 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    POVButton driverUp = new POVButton(driver, 0);
-    POVButton driverLeft = new POVButton(driver, 90);
-    POVButton driverDown = new POVButton(driver, 180);
-    POVButton driverRight = new POVButton(driver, 270);
+    int povAngle = driver.getPOV();
+
+    Trigger driverUp = new Trigger(() -> (povAngle >= 315 || povAngle <= 45));
+    Trigger driverDown = new Trigger(() -> (povAngle >= 135 && povAngle <= 225));
+    Trigger driverLeft = new Trigger(() -> (povAngle >= 225 && povAngle <= 315));
+    Trigger driverRight = new Trigger(() -> (povAngle >= 45 && povAngle <= 135));
 
     AbsoluteDrive closedAbsoluteDrive =
         new AbsoluteDrive(
