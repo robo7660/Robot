@@ -31,6 +31,7 @@ import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.Transfer;
 import java.io.File;
+import java.util.function.DoubleSupplier;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -71,12 +72,12 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    int povAngle = driver.getPOV();
+  DoubleSupplier povAngle = () -> driver.getPOV();
 
-    Trigger driverUp = new Trigger(() -> (povAngle >= 315 || povAngle <= 45));
-    Trigger driverDown = new Trigger(() -> (povAngle >= 135 && povAngle <= 225));
-    Trigger driverLeft = new Trigger(() -> (povAngle >= 225 && povAngle <= 315));
-    Trigger driverRight = new Trigger(() -> (povAngle >= 45 && povAngle <= 135));
+  Trigger driverUp = new Trigger(() -> (povAngle.getAsDouble() >= 315 || (povAngle.getAsDouble() <= 45 && povAngle.getAsDouble() >= 0)));
+  Trigger driverDown = new Trigger(() -> (povAngle.getAsDouble() >= 135 && povAngle.getAsDouble() <= 225));
+  Trigger driverLeft = new Trigger(() -> (povAngle.getAsDouble() >= 225 && povAngle.getAsDouble() <= 315));
+  Trigger driverRight = new Trigger(() -> (povAngle.getAsDouble() >= 45 && povAngle.getAsDouble() <= 135));
 
     AbsoluteDrive closedAbsoluteDrive =
         new AbsoluteDrive(
@@ -94,13 +95,13 @@ public class RobotContainer {
             m_swerve,
             () -> MathUtil.applyDeadband(-driver.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
             () -> MathUtil.applyDeadband(-driver.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-            () -> MathUtil.applyDeadband(-driver.getRightX(), OperatorConstants.RIGHT_X_DEADBAND),
+            () -> MathUtil.applyDeadband(driver.getRightX(), OperatorConstants.RIGHT_X_DEADBAND),
             () -> driverUp.getAsBoolean(),
             () -> driverDown.getAsBoolean(),
             () -> driverLeft.getAsBoolean(),
             () -> driverRight.getAsBoolean());
 
-    m_swerve.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : advancedDrive);
+    m_swerve.setDefaultCommand(!RobotBase.isSimulation() ? advancedDrive : advancedDrive);
 
     // -m_index.setDefaultCommand(m_index.manualIntake(coDriver::getRightY));
 
