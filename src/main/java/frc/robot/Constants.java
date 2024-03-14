@@ -58,7 +58,7 @@ public final class Constants {
     public static final double launcherI = 0;
     public static final double launcherD = 0;
     public static final double launcherFF = 0.000156;
-    public static final double angleP = 0.00025;
+    public static final double angleP = 0.0045;
     public static final double angleI = 0;
     public static final double angleD = 0;
     public static final double angleFF = 0;
@@ -67,12 +67,12 @@ public final class Constants {
     public static final int angleID = 46;
     public static final double allowedVeloPercent = 10;
     public static final double allowedDifferencePercent = 5;
-    public static final double closeLaunchPosition = 585;
-    public static final double farLaunchPosition = 655;
-    public static final double angleMin = 581;
-    public static final double angleMax = 660;
+    public static final double closeLaunchPosition = 330;
+    public static final double farLaunchPosition = 262;
+    public static final double angleMin = 261;
+    public static final double angleMax = 333;
     public static final boolean angleMotorInverted = true;
-    public static final boolean angleEncoderInverted = true;
+    public static final boolean angleEncoderInverted = false;
     public static final boolean lowerMotorInverted = true;
     public static final boolean upperMotorInverted = false;
     public static final double speedFarSpeaker = 2800;
@@ -93,6 +93,7 @@ public final class Constants {
     public static final int winchLimitLeft = 2;
     public static final int winchLimitRight = 3;
     public static final double motorSpeedFactor = -0.9;
+    public static final double deadzone = 0.1;
   }
 
   public static class Transfer {
