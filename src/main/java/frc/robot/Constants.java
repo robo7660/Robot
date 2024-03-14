@@ -78,10 +78,19 @@ public final class Constants {
     public static final double speedFarSpeaker = 2800;
     public static final double angleConversionFactor = 1000;
     public static final double launcherConversionFactor = 1;
+    public static final double safeLaunchVelo = 6000;
+    public static final double subwooferLaunchVelo = 3500;
+    public static final double ampLaunchVelo = 1500;
 
     public enum LaunchPosition {
       CLOSE,
       FAR
+    }
+
+    public enum LaunchPreset {
+      SUBWOOFER,
+      SAFE,
+      AMP
     }
   }
 

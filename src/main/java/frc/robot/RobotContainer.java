@@ -15,13 +15,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.Launch.LaunchPreset;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AbsoluteDrive;
 import frc.robot.commands.AbsoluteDriveAdv;
 import frc.robot.commands.AlignLaunchAuto;
 import frc.robot.commands.LaunchWithVelo;
 import frc.robot.commands.LaunchWithVeloAuton;
+import frc.robot.commands.PassiveLaunchSpin;
 import frc.robot.commands.PrimeIndex;
 import frc.robot.commands.SwitchLaunchAngle;
 import frc.robot.commands.ToggleIntake;
@@ -109,11 +112,15 @@ public class RobotContainer {
             () -> driverLeft.getAsBoolean(),
             () -> driverRight.getAsBoolean());
 
-    m_swerve.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : advancedDrive);
+    m_swerve.setDefaultCommand(
+        !RobotBase.isSimulation() ? closedAbsoluteDrive : closedAbsoluteDrive);
+    m_launch.setDefaultCommand(new PassiveLaunchSpin(m_launch, m_index));
 
     // -m_index.setDefaultCommand(m_index.manualIntake(coDriver::getRightY));
 
-    m_climb.setDefaultCommand(m_climb.setWinchCommand(() -> MathUtil.applyDeadband(coDriver.getLeftY(), Constants.Climb.deadzone)));
+    m_climb.setDefaultCommand(
+        m_climb.setWinchCommand(
+            () -> MathUtil.applyDeadband(coDriver.getLeftY(), Constants.Climb.deadzone)));
 
     // add auto options
     m_chooser.setDefaultOption("Test Drive", m_swerve.getAutonomousCommand("Test Drive"));
@@ -173,6 +180,15 @@ public class RobotContainer {
 
     JoystickButton b = new JoystickButton(driver, XboxController.Button.kB.value);
     b.whileTrue(m_swerve.setRotationCommand(180));
+
+    POVButton up = new POVButton(driver, 0);
+    up.onTrue(m_launch.setLaunchPresetCommand(LaunchPreset.SAFE));
+
+    POVButton down = new POVButton(driver, 180);
+    down.onTrue(m_launch.setLaunchPresetCommand(LaunchPreset.SUBWOOFER));
+
+    POVButton left = new POVButton(driver, 270);
+    left.onTrue(m_launch.setLaunchPresetCommand(LaunchPreset.AMP));
   }
 
   /**
