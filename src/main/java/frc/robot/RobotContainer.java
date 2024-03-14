@@ -23,6 +23,7 @@ import frc.robot.commands.AlignLaunchAuto;
 import frc.robot.commands.LaunchWithVelo;
 import frc.robot.commands.LaunchWithVeloAuton;
 import frc.robot.commands.PrimeIndex;
+import frc.robot.commands.SwitchLaunchAngle;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Index;
@@ -72,12 +73,19 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-  DoubleSupplier povAngle = () -> driver.getPOV();
+    DoubleSupplier povAngle = () -> driver.getPOV();
 
-  Trigger driverUp = new Trigger(() -> (povAngle.getAsDouble() >= 315 || (povAngle.getAsDouble() <= 45 && povAngle.getAsDouble() >= 0)));
-  Trigger driverDown = new Trigger(() -> (povAngle.getAsDouble() >= 135 && povAngle.getAsDouble() <= 225));
-  Trigger driverLeft = new Trigger(() -> (povAngle.getAsDouble() >= 225 && povAngle.getAsDouble() <= 315));
-  Trigger driverRight = new Trigger(() -> (povAngle.getAsDouble() >= 45 && povAngle.getAsDouble() <= 135));
+    Trigger driverUp =
+        new Trigger(
+            () ->
+                (povAngle.getAsDouble() >= 315
+                    || (povAngle.getAsDouble() <= 45 && povAngle.getAsDouble() >= 0)));
+    Trigger driverDown =
+        new Trigger(() -> (povAngle.getAsDouble() >= 135 && povAngle.getAsDouble() <= 225));
+    Trigger driverLeft =
+        new Trigger(() -> (povAngle.getAsDouble() >= 225 && povAngle.getAsDouble() <= 315));
+    Trigger driverRight =
+        new Trigger(() -> (povAngle.getAsDouble() >= 45 && povAngle.getAsDouble() <= 135));
 
     AbsoluteDrive closedAbsoluteDrive =
         new AbsoluteDrive(
@@ -101,11 +109,11 @@ public class RobotContainer {
             () -> driverLeft.getAsBoolean(),
             () -> driverRight.getAsBoolean());
 
-    m_swerve.setDefaultCommand(!RobotBase.isSimulation() ? advancedDrive : advancedDrive);
+    m_swerve.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : advancedDrive);
 
     // -m_index.setDefaultCommand(m_index.manualIntake(coDriver::getRightY));
 
-    m_climb.setDefaultCommand(m_climb.setWinchCommand(coDriver::getLeftY));
+    m_climb.setDefaultCommand(m_climb.setWinchCommand(() -> MathUtil.applyDeadband(coDriver.getLeftY(), Constants.Climb.deadzone)));
 
     // add auto options
     m_chooser.setDefaultOption("Test Drive", m_swerve.getAutonomousCommand("Test Drive"));
@@ -161,7 +169,7 @@ public class RobotContainer {
     a.whileTrue(new LaunchWithVelo(m_launch, m_index, 2050, false));
 
     JoystickButton y = new JoystickButton(driver, XboxController.Button.kY.value);
-    y.whileTrue(m_intake.reverseIntakeCommand());
+    y.whileTrue(new SwitchLaunchAngle(m_launch));
 
     JoystickButton b = new JoystickButton(driver, XboxController.Button.kB.value);
     b.whileTrue(m_swerve.setRotationCommand(180));
