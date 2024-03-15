@@ -22,6 +22,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AbsoluteDrive;
 import frc.robot.commands.AbsoluteDriveAdv;
 import frc.robot.commands.AlignLaunchAuto;
+import frc.robot.commands.FeedLauncher;
 import frc.robot.commands.LaunchWithVelo;
 import frc.robot.commands.LaunchWithVeloAuton;
 import frc.robot.commands.PassiveLaunchSpin;
@@ -164,7 +165,7 @@ public class RobotContainer {
     lt.whileTrue(m_swerve.alignCommand());
 
     Trigger rt = new Trigger(() -> driver.getRightTriggerAxis() >= 0.05);
-    rt.whileTrue(new LaunchWithVelo(m_launch, m_index, 5200, false));
+    rt.whileTrue(new FeedLauncher(m_index));
 
     JoystickButton x = new JoystickButton(driver, XboxController.Button.kX.value);
     x.whileTrue(m_swerve.updatePositionCommand());
@@ -176,7 +177,7 @@ public class RobotContainer {
     y.whileTrue(new SwitchLaunchAngle(m_launch));
 
     JoystickButton b = new JoystickButton(driver, XboxController.Button.kB.value);
-    b.whileTrue(new LaunchWithVelo(m_launch, m_index, 1500, true));
+    b.whileTrue(new LaunchWithVelo(m_launch, m_index, 5200, false));
 
     POVButton up = new POVButton(driver, 0);
     up.onTrue(m_launch.setLaunchPresetCommand(LaunchPreset.SAFE));
