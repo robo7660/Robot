@@ -5,8 +5,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.revrobotics.CANSparkLowLevel;
-import com.revrobotics.CANSparkMax;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,7 +17,8 @@ public class Intake extends SubsystemBase {
       new CANSparkMax(Constants.Intake.leftCANID, CANSparkLowLevel.MotorType.kBrushless);
 
   private CANSparkMax motorCenter =
-      new CANSparkMax(Constants.Intake.centerCANID, CANSparkLowLevel.MotorType.kBrushless); */ //FIXME when other intakes get added
+      new CANSparkMax(Constants.Intake.centerCANID, CANSparkLowLevel.MotorType.kBrushless); */
+  // FIXME when other intakes get added
   private TalonFX motorRight = new TalonFX(Constants.Intake.rightCANID);
 
   private SlewRateLimiter limiter = new SlewRateLimiter(0.5);
@@ -29,7 +28,8 @@ public class Intake extends SubsystemBase {
 
   public Intake() {
     /* motorLeft.setInverted(Constants.Intake.leftInverted);
-    motorCenter.setInverted(Constants.Intake.centerInverted); */ //FIXME when intakes get added
+    motorCenter.setInverted(Constants.Intake.centerInverted); */
+    // FIXME when intakes get added
     motorRight.setInverted(Constants.Intake.rightInverted);
     stop();
   }
@@ -68,7 +68,8 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putBoolean("Intake Running", isRunning());
 
     /* motorLeft.set(limiter.calculate(targetSpeed));
-    motorCenter.set(limiter.calculate(targetSpeed)); */ //FIXME when other intakes added
+    motorCenter.set(limiter.calculate(targetSpeed)); */
+    // FIXME when other intakes added
     motorRight.set(limiter.calculate(targetSpeed));
   }
 
