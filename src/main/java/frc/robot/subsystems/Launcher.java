@@ -224,7 +224,7 @@ public class Launcher extends SubsystemBase {
     }
     SmartDashboard.putNumber("Angle Speed", angle.get());
     SmartDashboard.putNumber("Launch Curr Velo Lower", upperLauncherEncoder.getVelocity());
-    SmartDashboard.putNumber("Launch Curr Velo Upper", lowerLauncherEncoder.getVelocity()); 
+    SmartDashboard.putNumber("Launch Curr Velo Upper", lowerLauncherEncoder.getVelocity());
     SmartDashboard.putNumber("Angle Position", angleEncoder.getPosition());
   }
 

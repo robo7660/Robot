@@ -68,7 +68,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("index", new PrimeIndex(m_index, m_transfer));
     NamedCommands.registerCommand(
         "align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 5300, 1));
-    NamedCommands.registerCommand("subwoofer-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 3500, 2));
+    NamedCommands.registerCommand(
+        "subwoofer-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, 3500, 2));
     NamedCommands.registerCommand("reverse intake", m_intake.reverseIntakeCommand());
 
     CameraServer.startAutomaticCapture(0);
@@ -132,10 +133,8 @@ public class RobotContainer {
     m_chooser.addOption("Close 2", m_swerve.getAutonomousCommand("Close 2"));
     m_chooser.addOption("Just Shoot", new AlignLaunchAuto(m_swerve, m_launch, m_index, 3200, 1));
     m_chooser.addOption("Just Chill", m_swerve.noAuto());
-    m_chooser.addOption(
-        "Short Shot Center", m_swerve.getAutonomousCommand("Short Shot Center"));
-    m_chooser.addOption(
-        "Short Shot Safe", m_swerve.getAutonomousCommand("Short Shot Safe"));
+    m_chooser.addOption("Short Shot Center", m_swerve.getAutonomousCommand("Short Shot Center"));
+    m_chooser.addOption("Short Shot Safe", m_swerve.getAutonomousCommand("Short Shot Safe"));
     m_chooser.addOption("Short Shot Amp", m_swerve.getAutonomousCommand("Short Shot Amp"));
 
     SmartDashboard.putData(m_chooser);

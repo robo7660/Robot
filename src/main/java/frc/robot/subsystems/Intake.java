@@ -20,8 +20,7 @@ public class Intake extends SubsystemBase {
 
   private CANSparkMax motorCenter =
       new CANSparkMax(Constants.Intake.centerCANID, CANSparkLowLevel.MotorType.kBrushless);
-  private TalonFX motorRight =
-      new TalonFX(Constants.Intake.rightCANID);
+  private TalonFX motorRight = new TalonFX(Constants.Intake.rightCANID);
 
   private SlewRateLimiter limiter = new SlewRateLimiter(0.5);
 
