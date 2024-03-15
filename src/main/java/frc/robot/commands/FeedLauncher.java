@@ -6,13 +6,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Index;
+import frc.robot.subsystems.Launcher;
 
 public class FeedLauncher extends Command {
   /** Creates a new FeedLauncher. */
   private Index index;
 
-  public FeedLauncher(Index index) {
+  private Launcher launcher;
+
+  public FeedLauncher(Index index, Launcher launcher) {
     this.index = index;
+    this.launcher = launcher;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(index);
   }
@@ -24,7 +28,11 @@ public class FeedLauncher extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    index.feed();
+    if (launcher.isAtTargetVelo()) {
+      index.feed();
+    } else {
+      index.stop();
+    }
   }
 
   // Called once the command ends or is interrupted.

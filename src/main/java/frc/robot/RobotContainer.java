@@ -165,7 +165,7 @@ public class RobotContainer {
     lt.whileTrue(m_swerve.alignCommand());
 
     Trigger rt = new Trigger(() -> driver.getRightTriggerAxis() >= 0.05);
-    rt.whileTrue(new FeedLauncher(m_index));
+    rt.whileTrue(new FeedLauncher(m_index, m_launch));
 
     JoystickButton x = new JoystickButton(driver, XboxController.Button.kX.value);
     x.whileTrue(m_swerve.updatePositionCommand());
