@@ -156,7 +156,7 @@ public class RobotContainer {
     leftBumper.onTrue(new ToggleIntake(m_intake, m_transfer));
 
     JoystickButton rb = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
-    rb.whileTrue(new LaunchWithVelo(m_launch, m_index, -1500, false));
+    rb.whileTrue(new LaunchWithVelo(m_launch, m_index, -1400, false));
 
     JoystickButton coRB = new JoystickButton(coDriver, XboxController.Button.kRightBumper.value);
     coRB.onTrue(new PrimeIndex(m_index, m_transfer));

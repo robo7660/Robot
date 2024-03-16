@@ -13,24 +13,21 @@ import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
-  /* private CANSparkMax motorLeft =
-      new CANSparkMax(Constants.Intake.leftCANID, CANSparkLowLevel.MotorType.kBrushless);
+  private TalonFX motorLeft =
+      new TalonFX(Constants.Intake.leftCANID);
+  private TalonFX motorCenter =
+      new TalonFX(Constants.Intake.centerCANID);
+  //private TalonFX motorRight = new TalonFX(Constants.Intake.rightCANID);
 
-  private CANSparkMax motorCenter =
-      new CANSparkMax(Constants.Intake.centerCANID, CANSparkLowLevel.MotorType.kBrushless); */
-  // FIXME when other intakes get added
-  private TalonFX motorRight = new TalonFX(Constants.Intake.rightCANID);
-
-  private SlewRateLimiter limiter = new SlewRateLimiter(0.5);
+  private SlewRateLimiter limiter = new SlewRateLimiter(1);
 
   double speed = Constants.Intake.speed;
   double targetSpeed = 0;
 
   public Intake() {
-    /* motorLeft.setInverted(Constants.Intake.leftInverted);
-    motorCenter.setInverted(Constants.Intake.centerInverted); */
-    // FIXME when intakes get added
-    motorRight.setInverted(Constants.Intake.rightInverted);
+    motorLeft.setInverted(Constants.Intake.leftInverted);
+    motorCenter.setInverted(Constants.Intake.centerInverted);
+    //motorRight.setInverted(Constants.Intake.rightInverted);
     stop();
   }
 
@@ -67,10 +64,9 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Intake Running", isRunning());
 
-    /* motorLeft.set(limiter.calculate(targetSpeed));
-    motorCenter.set(limiter.calculate(targetSpeed)); */
-    // FIXME when other intakes added
-    motorRight.set(limiter.calculate(targetSpeed));
+    motorLeft.set(limiter.calculate(targetSpeed));
+    motorCenter.set(limiter.calculate(targetSpeed));
+    //motorRight.set(limiter.calculate(targetSpeed));
   }
 
   public Command reverseIntakeCommand() {
