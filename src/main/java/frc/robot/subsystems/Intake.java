@@ -17,7 +17,7 @@ public class Intake extends SubsystemBase {
       new TalonFX(Constants.Intake.leftCANID);
   private TalonFX motorCenter =
       new TalonFX(Constants.Intake.centerCANID);
-  //private TalonFX motorRight = new TalonFX(Constants.Intake.rightCANID);
+  private TalonFX motorRight = new TalonFX(Constants.Intake.rightCANID);
 
   private SlewRateLimiter limiter = new SlewRateLimiter(1);
 
@@ -27,7 +27,7 @@ public class Intake extends SubsystemBase {
   public Intake() {
     motorLeft.setInverted(Constants.Intake.leftInverted);
     motorCenter.setInverted(Constants.Intake.centerInverted);
-    //motorRight.setInverted(Constants.Intake.rightInverted);
+    motorRight.setInverted(Constants.Intake.rightInverted);
     stop();
   }
 
@@ -66,10 +66,14 @@ public class Intake extends SubsystemBase {
 
     motorLeft.set(limiter.calculate(targetSpeed));
     motorCenter.set(limiter.calculate(targetSpeed));
-    //motorRight.set(limiter.calculate(targetSpeed));
+    motorRight.set(limiter.calculate(targetSpeed));
   }
 
   public Command reverseIntakeCommand() {
     return this.run(() -> set(-0.8));
+  }
+
+  public Command runOnHold() {
+    return this.runEnd(() -> start(), () -> stop());
   }
 }

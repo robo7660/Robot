@@ -50,7 +50,7 @@ public final class Constants {
     public static final boolean leftInverted = false;
     public static final boolean centerInverted = true;
     public static final boolean rightInverted = true;
-    public static final double speed = 0.95;
+    public static final double speed = 0.6;
   }
 
   public static class Launch {
@@ -67,7 +67,7 @@ public final class Constants {
     public static final int angleID = 46;
     public static final double allowedVeloPercent = 10;
     public static final double allowedDifferencePercent = 5;
-    public static final double closeLaunchPosition = 828;
+    public static final double closeLaunchPosition = 820;
     public static final double farLaunchPosition = 752;
     public static final double angleMin = 750;
     public static final double angleMax = 828;
@@ -80,7 +80,7 @@ public final class Constants {
     public static final double launcherConversionFactor = 1;
     public static final double safeLaunchVelo = 6000;
     public static final double subwooferLaunchVelo = 3500;
-    public static final double ampLaunchVelo = 1500;
+    public static final double ampLaunchVelo = 2800;
 
     public enum LaunchPosition {
       CLOSE,

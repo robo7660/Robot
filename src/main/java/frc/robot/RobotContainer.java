@@ -27,6 +27,7 @@ import frc.robot.commands.LaunchWithVelo;
 import frc.robot.commands.LaunchWithVeloAuton;
 import frc.robot.commands.PassiveLaunchSpin;
 import frc.robot.commands.PrimeIndex;
+import frc.robot.commands.RunIntake;
 import frc.robot.commands.SwitchLaunchAngle;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.Climb;
@@ -153,7 +154,7 @@ public class RobotContainer {
   private void configureBindings() {
 
     JoystickButton leftBumper = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    leftBumper.onTrue(new ToggleIntake(m_intake, m_transfer));
+    leftBumper.whileTrue(new RunIntake(m_intake, m_transfer));
 
     JoystickButton rb = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     rb.whileTrue(new LaunchWithVelo(m_launch, m_index, -1400, false));
@@ -171,7 +172,7 @@ public class RobotContainer {
     x.whileTrue(m_swerve.updatePositionCommand());
 
     JoystickButton a = new JoystickButton(driver, XboxController.Button.kA.value);
-    a.whileTrue(new LaunchWithVelo(m_launch, m_index, 3500, false));
+    a.whileTrue(new LaunchWithVelo(m_launch, m_index, 2800, false));
 
     JoystickButton y = new JoystickButton(driver, XboxController.Button.kY.value);
     y.whileTrue(new SwitchLaunchAngle(m_launch));
