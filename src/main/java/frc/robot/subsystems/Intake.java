@@ -13,10 +13,9 @@ import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
-  private TalonFX motorLeft =
-      new TalonFX(Constants.Intake.leftCANID);
-  private TalonFX motorCenter =
-      new TalonFX(Constants.Intake.centerCANID);
+  private TalonFX motorLeft = new TalonFX(Constants.Intake.leftCANID);
+
+  private TalonFX motorCenter = new TalonFX(Constants.Intake.centerCANID);
   private TalonFX motorRight = new TalonFX(Constants.Intake.rightCANID);
 
   private SlewRateLimiter limiter = new SlewRateLimiter(1);
