@@ -35,7 +35,6 @@ public class RunIntake extends Command {
   @Override
   public void end(boolean interrupted) {
     intake.stop();
-    transfer.stop();
   }
 
   // Returns true when the command should end.
