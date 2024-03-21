@@ -28,7 +28,7 @@ public class AlignLaunchAuto extends Command {
     this.launchTime = launchTime;
     timer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(swerve, launcher, index);
+    addRequirements(launcher, index);
   }
 
   // Called when the command is initially scheduled.
