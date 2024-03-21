@@ -691,4 +691,13 @@ public class SwerveSubsystem extends SubsystemBase
   public Command noAuto() {
     return this.runOnce(() -> nullFunction());
   }
+
+  public void flipOdom() {
+    swerveDrive.resetOdometry(swerveDrive.getPose().rotateBy(new Rotation2d(-1, 0)));
+  }
+
+  public Command flipOdomCommand() {
+    return this.runOnce(() -> flipOdom());
+  }
+  
 }

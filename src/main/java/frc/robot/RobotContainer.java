@@ -138,6 +138,9 @@ public class RobotContainer {
     m_chooser.addOption("Short Shot Center", m_swerve.getAutonomousCommand("Short Shot Center"));
     m_chooser.addOption("Short Shot Safe", m_swerve.getAutonomousCommand("Short Shot Safe"));
     m_chooser.addOption("Short Shot Amp", m_swerve.getAutonomousCommand("Short Shot Amp"));
+    m_chooser.addOption("Choreo Test", m_swerve.getAutonomousCommand("ChoreoTest"));
+    m_chooser.addOption("2m drive", m_swerve.getAutonomousCommand("2m drive"));
+    m_chooser.addOption("Choreo 2m Drive", m_swerve.getAutonomousCommand("Choreo 2m"));
 
     SmartDashboard.putData(m_chooser);
   }
@@ -188,6 +191,9 @@ public class RobotContainer {
 
     POVButton left = new POVButton(driver, 270);
     left.onTrue(m_launch.setLaunchPresetCommand(LaunchPreset.AMP));
+
+    POVButton right = new POVButton(driver, 90);
+    right.onTrue(m_swerve.flipOdomCommand());
   }
 
   /**
