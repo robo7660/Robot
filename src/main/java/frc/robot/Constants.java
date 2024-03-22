@@ -30,7 +30,7 @@ public final class Constants {
       new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
 
   public static final PIDConstants autoTranslationPID = new PIDConstants(9, 0, 0);
-  public static final PIDConstants autoRotationPID = new PIDConstants(0.4, 0, 0.01);
+  public static final PIDConstants autoRotationPID = new PIDConstants(10, 0, 0.01);
 
   public static class Index {
     public static final int whooperCANID = 41;
