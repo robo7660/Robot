@@ -17,9 +17,11 @@ public class LaunchWithVeloAuton extends Command {
 
   private double launchVelo;
 
-  private Timer switchTimer;
+  private  Timer switchTimer;
 
-  public LaunchWithVeloAuton(Launcher launcher, Index index, double velocity) {
+  private double time;
+
+  public LaunchWithVeloAuton(Launcher launcher, Index index, double velocity, double time) {
     this.launcher = launcher;
     this.index = index;
     launchVelo = velocity;
@@ -57,6 +59,6 @@ public class LaunchWithVeloAuton extends Command {
   @Override
   public boolean isFinished() {
     // Only called on button hold and done when button released
-    return true;
+    return switchTimer.hasElapsed(time);
   }
 }
