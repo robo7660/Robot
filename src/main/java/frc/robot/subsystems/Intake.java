@@ -58,6 +58,12 @@ public class Intake extends SubsystemBase {
     return !(targetSpeed == 0);
   }
 
+  public void inAndOut() {
+    motorCenter.set(limiter.calculate(-targetSpeed));
+    motorLeft.set(limiter.calculate(targetSpeed));
+    motorRight.set(limiter.calculate(targetSpeed));
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
