@@ -562,16 +562,10 @@ public class SwerveSubsystem extends SubsystemBase
       return;
     }
     Pose2d pose;
-    if (Robot.alliance == Alliance.Red && hasTarget) {
-      pose = LimelightHelpers.getBotPose2d_wpiRed(Constants.limelightName);
-      resetOdometry(pose);
-      setRotation(pose.getRotation().getRadians());
-    } else if (Robot.alliance == Alliance.Blue && hasTarget) {
-      pose = LimelightHelpers.getBotPose2d_wpiBlue(Constants.limelightName);
-      resetOdometry(pose);
-      setRotation(pose.getRotation().getRadians());
+    pose = LimelightHelpers.getBotPose2d_wpiBlue(Constants.limelightName);
+    resetOdometry(pose);
+    setRotation(pose.getRotation().getRadians());
     }
-  }
 
   public void resetToPosition(double x, double y, double rotation) {
     Rotation2d rotation2d = new Rotation2d(Units.degreesToRadians(rotation));
@@ -598,12 +592,11 @@ public class SwerveSubsystem extends SubsystemBase
       double newRotation = getHeading().getRadians() - offset;
       setRotation(newRotation);
       return ((5 >= offsetDegrees) && (-5 <= offsetDegrees));
-    } /*else {
+    } else {
       double newRotation = getHeading().getRadians() + Units.degreesToRadians(20) * (Robot.alliance == Alliance.Blue ? -1 : 1);
       setRotation(newRotation);
-    }*/
-
-    return (true);
+      return false;
+    }
   }
 
   public void resetToDashboard() {
@@ -622,13 +615,8 @@ public class SwerveSubsystem extends SubsystemBase
     double curTime = Timer.getFPGATimestamp();
     Pose2d pose2d;
     Pose3d pose3d;
-    if (Robot.alliance == Alliance.Red) {
-      pose2d = LimelightHelpers.getBotPose2d_wpiRed(Constants.limelightName);
-      pose3d = LimelightHelpers.getBotPose3d_wpiRed(Constants.limelightName);
-    } else {
-      pose2d = LimelightHelpers.getBotPose2d_wpiBlue(Constants.limelightName).times(-1);
-      pose3d = LimelightHelpers.getBotPose3d_wpiBlue(Constants.limelightName);
-    }
+    pose2d = LimelightHelpers.getBotPose2d_wpiBlue(Constants.limelightName).times(-1);
+    pose3d = LimelightHelpers.getBotPose3d_wpiBlue(Constants.limelightName);
     swerveDrive.addVisionMeasurement(pose2d, curTime);
     swerveDrive.setGyro(pose3d.getRotation());
   }
