@@ -7,10 +7,10 @@ package frc.robot;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.Launch.LaunchPosition;
 import frc.robot.Constants.Launch.LaunchPreset;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AbsoluteDrive;
@@ -101,8 +100,14 @@ public class RobotContainer {
             // Applies deadbands and inverts controls because joysticks
             // are back-right positive while robot
             // controls are front-left positive
-            () -> MathUtil.applyDeadband(driver.getLeftY() * (Robot.alliance == Alliance.Blue ? -1 : 1), OperatorConstants.LEFT_Y_DEADBAND),
-            () -> MathUtil.applyDeadband(driver.getLeftX() * (Robot.alliance == Alliance.Blue ? -1 : 1), OperatorConstants.LEFT_X_DEADBAND),
+            () ->
+                MathUtil.applyDeadband(
+                    driver.getLeftY() * (Robot.alliance == Alliance.Blue ? -1 : 1),
+                    OperatorConstants.LEFT_Y_DEADBAND),
+            () ->
+                MathUtil.applyDeadband(
+                    driver.getLeftX() * (Robot.alliance == Alliance.Blue ? -1 : 1),
+                    OperatorConstants.LEFT_X_DEADBAND),
             () -> driver.getRightX() * (Robot.alliance == Alliance.Blue ? -1 : 1),
             () -> driver.getRightY() * (Robot.alliance == Alliance.Blue ? -1 : 1));
 
@@ -138,7 +143,8 @@ public class RobotContainer {
     m_chooser.addOption("Mid 2", m_swerve.getAutonomousCommand("2 Piece Mid"));
     m_chooser.addOption("Amp 2", m_swerve.getAutonomousCommand("Amp 2 Note"));
     m_chooser.addOption("Amp 3", m_swerve.getAutonomousCommand("Amp 3 Note"));
-    m_chooser.addOption("Just Shoot", new AlignLaunchAuto(m_swerve, m_launch, m_index, LaunchPreset.SUBWOOFER, 1));
+    m_chooser.addOption(
+        "Just Shoot", new AlignLaunchAuto(m_swerve, m_launch, m_index, LaunchPreset.SUBWOOFER, 1));
     m_chooser.addOption("Just Chill", m_swerve.noAuto());
     m_chooser.addOption("Short Shot Center", m_swerve.getAutonomousCommand("Short Shot Center"));
     m_chooser.addOption("Short Shot Safe", m_swerve.getAutonomousCommand("Short Shot Safe"));

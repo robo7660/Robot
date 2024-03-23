@@ -17,7 +17,7 @@ public class LaunchWithVeloAuton extends Command {
 
   private double launchVelo;
 
-  private  Timer switchTimer;
+  private Timer switchTimer;
 
   private double time;
 

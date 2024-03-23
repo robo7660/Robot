@@ -11,6 +11,7 @@ import frc.robot.subsystems.Transfer;
 public class IntakeSpit extends Command {
   /** Creates a new IntakeSpit. */
   private Intake intake;
+
   private Transfer transfer;
 
   public IntakeSpit(Intake intake, Transfer transfer) {

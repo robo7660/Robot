@@ -21,7 +21,11 @@ public class AlignLaunchAuto extends Command {
 
   /** Creates a new AlignLaunchAuto. */
   public AlignLaunchAuto(
-      SwerveSubsystem swerve, Launcher launcher, Index index, LaunchPreset launchPreset, double launchTime) {
+      SwerveSubsystem swerve,
+      Launcher launcher,
+      Index index,
+      LaunchPreset launchPreset,
+      double launchTime) {
     this.swerve = swerve;
     this.launcher = launcher;
     this.index = index;
