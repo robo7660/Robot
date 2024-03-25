@@ -198,8 +198,7 @@ public class Launcher extends SubsystemBase {
     } else if (preset == LaunchPreset.AMP) {
       goalPosition = LaunchPosition.CLOSE;
       goalVelo = Constants.Launch.ampLaunchVelo;
-    }
-    else {
+    } else {
       goalPosition = LaunchPosition.CLOSE;
       goalVelo = 50;
     }
