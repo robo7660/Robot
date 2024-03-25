@@ -199,6 +199,10 @@ public class Launcher extends SubsystemBase {
       goalPosition = LaunchPosition.CLOSE;
       goalVelo = Constants.Launch.ampLaunchVelo;
     }
+    else {
+      goalPosition = LaunchPosition.CLOSE;
+      goalVelo = 50;
+    }
   }
 
   public void setPresetVelo() {

@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.Launch.LaunchPosition;
 import frc.robot.Constants.Launch.LaunchPreset;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AbsoluteDrive;
@@ -51,7 +52,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private final SwerveSubsystem m_swerve =
-      new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerves/AllNeoSwerve"));
+      new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerves/KrakenSwerve"));
   private final Intake m_intake = new Intake();
   private final Index m_index = new Index();
   private final Launcher m_launch = new Launcher();
@@ -71,7 +72,7 @@ public class RobotContainer {
     NamedCommands.registerCommand(
         "align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, LaunchPreset.SAFE, 0.5));
     NamedCommands.registerCommand(
-        "subwoofer-launch", new LaunchWithVeloAuton(m_launch, m_index, 3500, 0.5));
+        "subwoofer-launch", new LaunchWithVeloAuton(m_launch, m_index, 3500, 1.5));
     NamedCommands.registerCommand("reverse intake", m_intake.reverseIntakeCommand());
 
     CameraServer.startAutomaticCapture(0);
@@ -135,21 +136,14 @@ public class RobotContainer {
     // add auto options
     m_chooser.setDefaultOption("Test Drive", m_swerve.getAutonomousCommand("Test Drive"));
 
-    m_chooser.addOption("Mid 2 Piece", m_swerve.getAutonomousCommand("Mid 2 Piece"));
-    m_chooser.addOption("1 Centerline", m_swerve.getAutonomousCommand("1 Centerline"));
-    m_chooser.addOption("5 Centerline", m_swerve.getAutonomousCommand("5 Centerline"));
-    m_chooser.addOption("Close 2", m_swerve.getAutonomousCommand("Close 2 Note"));
-    m_chooser.addOption("Close 3", m_swerve.getAutonomousCommand("Close 3 Note"));
-    m_chooser.addOption("Mid 2", m_swerve.getAutonomousCommand("2 Piece Mid"));
+    m_chooser.addOption("Source 2 Centerline", m_swerve.getAutonomousCommand("Source 2 Note Centerline"));
+    m_chooser.addOption("Source 2 Close", m_swerve.getAutonomousCommand("Source 2 Note Close"));
+    m_chooser.addOption("Source 3", m_swerve.getAutonomousCommand("Source 3 Note"));
+    m_chooser.addOption("Middle 3", m_swerve.getAutonomousCommand("Middle 3 Note"));
     m_chooser.addOption("Amp 2", m_swerve.getAutonomousCommand("Amp 2 Note"));
     m_chooser.addOption("Amp 3", m_swerve.getAutonomousCommand("Amp 3 Note"));
     m_chooser.addOption(
         "Just Shoot", new AlignLaunchAuto(m_swerve, m_launch, m_index, LaunchPreset.SUBWOOFER, 1));
-    m_chooser.addOption("Just Chill", m_swerve.noAuto());
-    m_chooser.addOption("Short Shot Center", m_swerve.getAutonomousCommand("Short Shot Center"));
-    m_chooser.addOption("Short Shot Safe", m_swerve.getAutonomousCommand("Short Shot Safe"));
-    m_chooser.addOption("Short Shot Amp", m_swerve.getAutonomousCommand("Short Shot Amp"));
-    m_chooser.addOption("Choreo Test", m_swerve.getAutonomousCommand("ChoreoTest"));
     m_chooser.addOption("2m drive", m_swerve.getAutonomousCommand("2m drive"));
     m_chooser.addOption("Choreo 2m Drive", m_swerve.getAutonomousCommand("Choreo 2m"));
 
@@ -207,7 +201,7 @@ public class RobotContainer {
     left.onTrue(m_launch.setLaunchPresetCommand(LaunchPreset.AMP));
 
     POVButton right = new POVButton(driver, 90);
-    right.onTrue(m_swerve.flipOdomCommand());
+    right.onTrue(m_launch.setLaunchPresetCommand(LaunchPreset.OFF));
   }
 
   /**
