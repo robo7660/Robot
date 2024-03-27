@@ -593,10 +593,22 @@ public class SwerveSubsystem extends SubsystemBase
       setRotation(newRotation);
       return ((5 >= offsetDegrees) && (-5 <= offsetDegrees));
     } else {
-      double newRotation = getHeading().getRadians() + Units.degreesToRadians(20) * (Robot.alliance == Alliance.Blue ? -1 : 1);
-      setRotation(newRotation);
+      faceSpeaker();
       return false;
     }
+  }
+
+  public void faceSpeaker() {
+    double targetX = (Robot.alliance == Alliance.Blue ? 0 : Units.feetToMeters(54));
+    double targetY = 5.54; //Offset of speaker in meters
+    Pose2d currPose = swerveDrive.getPose();
+    double currX = currPose.getX();
+    double currY = currPose.getY();
+    double xOffset = targetX - currX;
+    double yOffset = targetY - currY;
+    double angle = Math.atan2(yOffset, xOffset) + Math.PI;
+    System.out.println("Aligning to angle" + angle);
+    setRotation(angle);
   }
 
   public void resetToDashboard() {
