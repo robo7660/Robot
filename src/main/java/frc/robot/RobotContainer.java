@@ -115,6 +115,7 @@ public class RobotContainer {
     m_chooser.addOption("Amp 3", m_swerve.getAutonomousCommand("Amp 3 Note"));
     m_chooser.addOption(
         "Just Shoot", new AlignLaunchAuto(m_swerve, m_launch, m_index, LaunchPreset.SUBWOOFER, 1));
+    m_chooser.addOption("2 Meter tuning", m_swerve.getAutonomousCommand("Choreo 2m"));
 
     SmartDashboard.putData(m_chooser);
   }
@@ -152,7 +153,7 @@ public class RobotContainer {
     x.whileTrue(m_swerve.updatePositionCommand());
 
     JoystickButton a = new JoystickButton(driver, XboxController.Button.kA.value);
-    a.whileTrue(new LaunchWithVelo(m_launch, m_index, 2800, false));
+    a.whileTrue(new LaunchWithVelo(m_launch, m_index, 2800, true));
 
     JoystickButton y = new JoystickButton(driver, XboxController.Button.kY.value);
     y.whileTrue(new SwitchLaunchAngle(m_launch));
