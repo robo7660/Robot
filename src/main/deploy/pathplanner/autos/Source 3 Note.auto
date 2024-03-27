@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Close 2 Note 2"
+            "pathName": "Close 2 Note 4"
           }
         },
         {
@@ -54,7 +54,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Close 2 Note 3"
+                  "pathName": "Close 2 Note 5"
                 }
               }
             ]
@@ -81,7 +81,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Close 2 Note 4"
+            "pathName": "Close 2 Note 2"
           }
         },
         {
@@ -103,7 +103,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Close 2 Note 5"
+                  "pathName": "Close 2 Note 3"
                 }
               }
             ]
