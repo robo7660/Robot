@@ -606,7 +606,7 @@ public class SwerveSubsystem extends SubsystemBase
     double currY = currPose.getY();
     double xOffset = targetX - currX;
     double yOffset = targetY - currY;
-    double angle = Math.atan2(yOffset, xOffset) + Math.PI;
+    double angle = Math.atan2(yOffset, xOffset);
     System.out.println("Aligning to angle" + angle);
     setRotation(angle);
   }
