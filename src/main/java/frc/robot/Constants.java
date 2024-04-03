@@ -50,7 +50,7 @@ public final class Constants {
     public static final boolean leftInverted = false;
     public static final boolean centerInverted = true;
     public static final boolean rightInverted = true;
-    public static final double speed = 0.6;
+    public static final double speed = 0.4;
   }
 
   public static class Launch {
@@ -78,7 +78,7 @@ public final class Constants {
     public static final double speedFarSpeaker = 2800;
     public static final double angleConversionFactor = 1000;
     public static final double launcherConversionFactor = 1;
-    public static final double safeLaunchVelo = 6000;
+    public static final double safeLaunchVelo = 5400;
     public static final double subwooferLaunchVelo = 3500;
     public static final double ampLaunchVelo = 2800;
 

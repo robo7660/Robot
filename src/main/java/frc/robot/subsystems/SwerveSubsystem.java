@@ -600,7 +600,7 @@ public class SwerveSubsystem extends SubsystemBase
 
   public void faceSpeaker() {
     double targetX = (Robot.alliance == Alliance.Blue ? 0 : Units.feetToMeters(54));
-    double targetY = 5.54; //Offset of speaker in meters
+    double targetY = 7; //Offset of speaker in meters
     Pose2d currPose = swerveDrive.getPose();
     double currX = currPose.getX();
     double currY = currPose.getY();
