@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.Timestamp;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.core.CoreTalonFX;
@@ -35,6 +36,7 @@ import frc.robot.LimelightHelpers;
 import frc.robot.Robot;
 
 import java.io.File;
+import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.function.DoubleSupplier;
 
@@ -346,6 +348,13 @@ public class SwerveSubsystem extends SubsystemBase
   @Override
   public void periodic()
   {
+    updateMatchTime();
+  }
+
+  private void updateMatchTime() {
+    int time = Math.max((int) DriverStation.getMatchTime(), 0);
+    String matchTime = String.format("%01d:%02d", time / 60, time % 60);
+    SmartDashboard.putString("Match Time", matchTime);
   }
 
   @Override
