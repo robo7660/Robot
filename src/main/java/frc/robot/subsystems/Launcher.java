@@ -228,7 +228,8 @@ public class Launcher extends SubsystemBase {
       curPosition = goalPosition;
       SmartDashboard.putNumber("Angle Desired", Constants.Launch.farLaunchPosition);
     } else {
-      launchAngleController.setReference(Constants.Launch.closeLaunchPosition, ControlType.kPosition);
+      launchAngleController.setReference(
+          Constants.Launch.closeLaunchPosition, ControlType.kPosition);
       curPosition = goalPosition;
       SmartDashboard.putNumber("Angle Desired", Constants.Launch.closeLaunchPosition);
     }

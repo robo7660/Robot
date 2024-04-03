@@ -12,6 +12,7 @@ import frc.robot.subsystems.Transfer;
 public class IntakeAndIndex extends Command {
   /** Creates a new IntakeAndIndex. */
   private final Intake intake;
+
   private final Transfer transfer;
   private final Index index;
   private boolean lowerHit;

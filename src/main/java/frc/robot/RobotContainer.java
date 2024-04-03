@@ -29,7 +29,6 @@ import frc.robot.commands.LaunchWithVelo;
 import frc.robot.commands.LaunchWithVeloAuton;
 import frc.robot.commands.PassiveLaunchSpin;
 import frc.robot.commands.PrimeIndex;
-import frc.robot.commands.RunIntake;
 import frc.robot.commands.SwitchLaunchAngle;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.Climb;
