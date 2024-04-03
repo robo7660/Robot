@@ -23,6 +23,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AbsoluteDrive;
 import frc.robot.commands.AlignLaunchAuto;
 import frc.robot.commands.FeedLauncher;
+import frc.robot.commands.IntakeAndIndex;
 import frc.robot.commands.IntakeSpit;
 import frc.robot.commands.LaunchWithVelo;
 import frc.robot.commands.LaunchWithVeloAuton;
@@ -132,16 +133,16 @@ public class RobotContainer {
   private void configureBindings() {
 
     JoystickButton leftBumper = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    leftBumper.whileTrue(new RunIntake(m_intake, m_transfer));
+    leftBumper.toggleOnTrue(new IntakeAndIndex(m_intake, m_index, m_transfer));
 
     JoystickButton rb = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     rb.whileTrue(new LaunchWithVelo(m_launch, m_index, -1400, false));
 
-    JoystickButton lb = new JoystickButton(coDriver, XboxController.Button.kLeftBumper.value);
-    lb.whileTrue(new IntakeSpit(m_intake, m_transfer));
+    JoystickButton coLb = new JoystickButton(coDriver, XboxController.Button.kLeftBumper.value);
+    coLb.whileTrue(new IntakeSpit(m_intake, m_transfer));
 
-    JoystickButton coRB = new JoystickButton(coDriver, XboxController.Button.kRightBumper.value);
-    coRB.onTrue(new PrimeIndex(m_index, m_transfer));
+    /*JoystickButton coRB = new JoystickButton(coDriver, XboxController.Button.kRightBumper.value);
+    coRB.onTrue(new PrimeIndex(m_index, m_transfer));*/
 
     Trigger lt = new Trigger(() -> driver.getLeftTriggerAxis() >= 0.05);
     lt.whileTrue(m_swerve.alignCommand());
@@ -153,13 +154,13 @@ public class RobotContainer {
     x.whileTrue(m_swerve.updatePositionCommand());
 
     JoystickButton a = new JoystickButton(driver, XboxController.Button.kA.value);
-    a.whileTrue(new LaunchWithVelo(m_launch, m_index, 2800, true));
+    a.whileTrue(new LaunchWithVelo(m_launch, m_index, 1000, false));
 
     JoystickButton y = new JoystickButton(driver, XboxController.Button.kY.value);
     y.whileTrue(new SwitchLaunchAngle(m_launch));
 
     JoystickButton b = new JoystickButton(driver, XboxController.Button.kB.value);
-    b.whileTrue(new LaunchWithVelo(m_launch, m_index, 5200, true));
+    b.whileTrue(new LaunchWithVelo(m_launch, m_index, 5200, false));
 
     POVButton up = new POVButton(driver, 0);
     up.onTrue(m_launch.setLaunchPresetCommand(LaunchPreset.SAFE));
