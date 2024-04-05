@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.Timestamp;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.core.CoreTalonFX;
@@ -23,7 +23,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.Unit;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -36,7 +35,6 @@ import frc.robot.LimelightHelpers;
 import frc.robot.Robot;
 
 import java.io.File;
-import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.function.DoubleSupplier;
 
@@ -103,6 +101,7 @@ public class SwerveSubsystem extends SubsystemBase
     setupCustom();
     initDriveTalons();
     setupFOC();
+    setCurrentLimits();
   }
 
   /**
@@ -118,6 +117,7 @@ public class SwerveSubsystem extends SubsystemBase
     setupCustom();
     initDriveTalons();
     setupFOC();
+    setCurrentLimits();
   }
 
   /**
@@ -355,6 +355,21 @@ public class SwerveSubsystem extends SubsystemBase
     int time = Math.max((int) DriverStation.getMatchTime(), 0);
     String matchTime = String.format("%01d:%02d", time / 60, time % 60);
     SmartDashboard.putString("Match Time", matchTime);
+  }
+
+  private void setCurrentLimits() {
+    for (SwerveModule swerveModule : swerveDrive.getModules()){
+      TalonFX motor = (TalonFX) swerveModule.getDriveMotor().getMotor();
+      CurrentLimitsConfigs config = new CurrentLimitsConfigs();
+      config.StatorCurrentLimitEnable = true;
+      config.SupplyCurrentLimitEnable = true;
+      config.SupplyCurrentThreshold = 60;
+      config.SupplyTimeThreshold = 2.5;
+      config.StatorCurrentLimit = Constants.driveStatorCurrentLimit;
+      config.SupplyCurrentLimit = Constants.driveSupplyCurrentLimit;
+      motor.getConfigurator().apply(config);
+      motor.getConfigurator().refresh(config);
+    }
   }
 
   @Override
