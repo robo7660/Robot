@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6946944060158917,
-      "y": 6.727333169630711
+      "x": 0.7531929553170285,
+      "y": 4.387391197585246
     },
-    "rotation": -120.0013184955057
+    "rotation": 119.9315118405078
   },
   "command": {
     "type": "sequential",
@@ -14,25 +14,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Simple Shoot Amp 1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Simple Shoot Amp 2"
+            "pathName": "Source 1 Note 0"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "align-launch"
+            "name": "subwoofer-launch"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 12.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Simple Shoot Amp 3"
+            "pathName": "Source 1 Note 1"
           }
         }
       ]

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.77430354290908,
-      "y": 4.303448834817898
+      "x": 1.328428690111538,
+      "y": 5.52811290895741
     },
-    "rotation": 120.48894049983096
+    "rotation": 179.056944767529
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Simple Shoot Safe 1 Blue"
+            "pathName": "Middle 1 Note 0"
           }
         },
         {
@@ -24,9 +24,15 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 12.5
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Simple Shoot Safe 2"
+            "pathName": "Middle 1 Note 1"
           }
         }
       ]
