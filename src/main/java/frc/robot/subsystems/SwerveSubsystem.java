@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.core.CoreTalonFX;
@@ -101,7 +100,6 @@ public class SwerveSubsystem extends SubsystemBase
     setupCustom();
     initDriveTalons();
     setupFOC();
-    setCurrentLimits();
   }
 
   /**
@@ -117,7 +115,6 @@ public class SwerveSubsystem extends SubsystemBase
     setupCustom();
     initDriveTalons();
     setupFOC();
-    setCurrentLimits();
   }
 
   /**
@@ -355,21 +352,6 @@ public class SwerveSubsystem extends SubsystemBase
     int time = Math.max((int) DriverStation.getMatchTime(), 0);
     String matchTime = String.format("%01d:%02d", time / 60, time % 60);
     SmartDashboard.putString("Match Time", matchTime);
-  }
-
-  private void setCurrentLimits() {
-    for (SwerveModule swerveModule : swerveDrive.getModules()){
-      TalonFX motor = (TalonFX) swerveModule.getDriveMotor().getMotor();
-      CurrentLimitsConfigs config = new CurrentLimitsConfigs();
-      config.StatorCurrentLimitEnable = true;
-      config.SupplyCurrentLimitEnable = true;
-      config.SupplyCurrentThreshold = 60;
-      config.SupplyTimeThreshold = 2.5;
-      config.StatorCurrentLimit = Constants.driveStatorCurrentLimit;
-      config.SupplyCurrentLimit = Constants.driveSupplyCurrentLimit;
-      motor.getConfigurator().apply(config);
-      motor.getConfigurator().refresh(config);
-    }
   }
 
   @Override
