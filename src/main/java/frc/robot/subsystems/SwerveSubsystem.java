@@ -361,6 +361,7 @@ public class SwerveSubsystem extends SubsystemBase
     for (SwerveModule swerveModule : swerveDrive.getModules()){
       TalonFX motor = (TalonFX) swerveModule.getDriveMotor().getMotor();
       CurrentLimitsConfigs config = new CurrentLimitsConfigs();
+      motor.getConfigurator().refresh(config);
       config.StatorCurrentLimitEnable = true;
       config.SupplyCurrentLimitEnable = true;
       config.SupplyCurrentThreshold = 60;
@@ -368,7 +369,6 @@ public class SwerveSubsystem extends SubsystemBase
       config.StatorCurrentLimit = Constants.driveStatorCurrentLimit;
       config.SupplyCurrentLimit = Constants.driveSupplyCurrentLimit;
       motor.getConfigurator().apply(config);
-      motor.getConfigurator().refresh(config);
     }
   }
 
