@@ -110,7 +110,7 @@ public final class Constants {
 
   public static class Transfer {
     public static final boolean motorInverted = true;
-    public static final double motorSpeed = 0.15;
+    public static final double motorSpeed = 0.3;
     public static final int motorID = 40;
   }
 
