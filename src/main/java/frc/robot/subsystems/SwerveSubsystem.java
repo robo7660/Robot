@@ -14,6 +14,10 @@ import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.ReplanningConfig;
+
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.estimator.PoseEstimator;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -33,6 +37,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.Robot;
+import frc.robot.LimelightHelpers.PoseEstimate;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -349,6 +354,7 @@ public class SwerveSubsystem extends SubsystemBase
   public void periodic()
   {
     updateMatchTime();
+    updateFromLimelight();
   }
 
   private void updateMatchTime() {
@@ -643,18 +649,16 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   public void updateFromLimelight() {
-    System.out.println("Updating");
-    boolean hasTarget = LimelightHelpers.getTV(Constants.limelightName);
-    if (!hasTarget) {
-      return;
+    boolean doRejectUpdate = false;
+    SwerveDrivePoseEstimator m_poseEstimator = swerveDrive.swerveDrivePoseEstimator;
+    LimelightHelpers.SetRobotOrientation("limelight", m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+    LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+    if (mt2.tagCount == 0){
+      doRejectUpdate = true;
     }
-    double curTime = Timer.getFPGATimestamp();
-    Pose2d pose2d;
-    Pose3d pose3d;
-    pose2d = LimelightHelpers.getBotPose2d_wpiBlue(Constants.limelightName).times(-1);
-    pose3d = LimelightHelpers.getBotPose3d_wpiBlue(Constants.limelightName);
-    swerveDrive.addVisionMeasurement(pose2d, curTime);
-    swerveDrive.setGyro(pose3d.getRotation());
+    if (!doRejectUpdate){
+      swerveDrive.addVisionMeasurement(mt2.pose, mt2.timestampSeconds);
+    }
   }
 
   private void populateDashboard() {
