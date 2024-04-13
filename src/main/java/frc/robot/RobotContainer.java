@@ -111,6 +111,7 @@ public class RobotContainer {
         "Source 2 Centerline", m_swerve.getAutonomousCommand("Source 2 Note Centerline"));
     m_chooser.addOption("Source 2 Close", m_swerve.getAutonomousCommand("Source 2 Note Close"));
     m_chooser.addOption("Source 3", m_swerve.getAutonomousCommand("Source 3 Note"));
+    m_chooser.addOption("2 Centerlines", m_swerve.getAutonomousCommand("2 Centerline Notes"));
     m_chooser.addOption("Middle 1", m_swerve.getAutonomousCommand("Middle 1 Note"));
     m_chooser.addOption("Middle 3", m_swerve.getAutonomousCommand("Middle 3 Note"));
     m_chooser.addOption("Amp 1", m_swerve.getAutonomousCommand("Amp 1 Note"));
