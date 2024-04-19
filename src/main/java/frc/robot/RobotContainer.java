@@ -106,6 +106,7 @@ public class RobotContainer {
             () -> MathUtil.applyDeadband(coDriver.getLeftY(), Constants.Climb.deadzone)));
 
     // add auto options
+    m_chooser.addOption("Quals 4 Specific", m_swerve.getAutonomousCommand("Quals 4 Specific"));
     m_chooser.addOption("Source 1", m_swerve.getAutonomousCommand("Source 1 Note"));
     m_chooser.addOption(
         "Source 2 Centerline", m_swerve.getAutonomousCommand("Source 2 Note Centerline"));
@@ -113,6 +114,7 @@ public class RobotContainer {
     m_chooser.addOption(
         "Source 3 Centerlines", m_swerve.getAutonomousCommand("2 Centerline Notes"));
     m_chooser.addOption("Middle 1", m_swerve.getAutonomousCommand("Middle 1 Note"));
+    m_chooser.addOption("Middle 2", m_swerve.getAutonomousCommand("Middle 2 Note"));
     m_chooser.addOption("Amp 1", m_swerve.getAutonomousCommand("Amp 1 Note"));
     m_chooser.addOption("Amp 4", m_swerve.getAutonomousCommand("Amp 3 Note"));
     m_chooser.addOption(

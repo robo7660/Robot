@@ -24,15 +24,39 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 10.0
+            "name": "intake"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Mid 2 Note 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Mid 2 Note 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "index"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwoofer-launch"
           }
         }
       ]

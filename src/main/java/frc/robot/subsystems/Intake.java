@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,6 +27,14 @@ public class Intake extends SubsystemBase {
   public Intake() {
     // motorLeft.setInverted(Constants.Intake.leftInverted);
     motorCenter.setInverted(Constants.Intake.centerInverted);
+    CurrentLimitsConfigs config = new CurrentLimitsConfigs();
+    config.StatorCurrentLimitEnable = true;
+    config.SupplyCurrentLimitEnable = true;
+    config.SupplyCurrentThreshold = 20;
+    config.SupplyTimeThreshold = 1.5;
+    config.StatorCurrentLimit = 30;
+    config.SupplyCurrentLimit = 30;
+    motorCenter.getConfigurator().apply(config);
     // motorRight.setInverted(Constants.Intake.rightInverted);
     stop();
   }
