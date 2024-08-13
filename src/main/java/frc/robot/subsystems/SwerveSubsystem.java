@@ -365,7 +365,7 @@ public class SwerveSubsystem extends SubsystemBase
       config.StatorCurrentLimitEnable = true;
       config.SupplyCurrentLimitEnable = true;
       config.SupplyCurrentThreshold = 60;
-      config.SupplyTimeThreshold = 2.5;
+      config.SupplyTimeThreshold = 1.27;
       config.StatorCurrentLimit = Constants.driveStatorCurrentLimit;
       config.SupplyCurrentLimit = Constants.driveSupplyCurrentLimit;
       motor.getConfigurator().apply(config);

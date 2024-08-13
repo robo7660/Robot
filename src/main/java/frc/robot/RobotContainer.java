@@ -49,7 +49,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private final SwerveSubsystem m_swerve =
-      new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerves/KrakenSwerve"));
+      new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerves/AllNeoSwerve"));
   private final Intake m_intake = new Intake();
   private final Index m_index = new Index();
   private final Launcher m_launch = new Launcher();
@@ -69,7 +69,7 @@ public class RobotContainer {
     NamedCommands.registerCommand(
         "align-launch", new AlignLaunchAuto(m_swerve, m_launch, m_index, LaunchPreset.SAFE, 0.5));
     NamedCommands.registerCommand(
-        "subwoofer-launch", new LaunchWithVeloAuton(m_launch, m_index, 3500, 1.5));
+        "subwoofer-launch", new LaunchWithVeloAuton(m_launch, m_index, 3500, 1));
     NamedCommands.registerCommand("reverse intake", m_intake.reverseIntakeCommand());
 
     CameraServer.startAutomaticCapture(0);
@@ -106,7 +106,7 @@ public class RobotContainer {
             () -> MathUtil.applyDeadband(coDriver.getLeftY(), Constants.Climb.deadzone)));
 
     // add auto options
-    m_chooser.addOption("Quals 4 Specific", m_swerve.getAutonomousCommand("Quals 4 Specific"));
+    m_chooser.addOption("Playoffs Race", m_swerve.getAutonomousCommand("Playoff Race"));
     m_chooser.addOption("Source 1", m_swerve.getAutonomousCommand("Source 1 Note"));
     m_chooser.addOption(
         "Source 2 Centerline", m_swerve.getAutonomousCommand("Source 2 Note Centerline"));

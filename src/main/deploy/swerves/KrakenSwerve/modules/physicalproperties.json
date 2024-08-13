@@ -5,10 +5,10 @@
   },
   "currentLimit": {
     "drive": 105,
-    "angle": 40
+    "angle": 30
   },
   "rampRate": {
-    "drive": 0.05,
+    "drive": 0.2,
     "angle": 0.05
   },
   "wheelGripCoefficientOfFriction": 1.1,
